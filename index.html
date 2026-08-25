@@ -297,7 +297,7 @@ header.brand-header{
         <div><label for="ffm">Masa libre de grasa (kg)</label><input id="ffm" type="number" min="20" max="180" step="0.1" placeholder="Ej. 58.0"></div>
         <div><label for="bf">Grasa corporal (%) <span class="badge">opcional</span></label><input id="bf" type="number" min="2" max="70" step="0.1" placeholder="Si no conoces la MLG"></div>
       </div>
-      <p class="small">Si dejas la MLG vacía y añades % de grasa, la app calcula MLG = peso × (1 − %grasa/100).</p>
+      <p class="small">Si introduces peso y % de grasa, la app calcula y muestra automáticamente la MLG = peso × (1 − %grasa/100). Si quieres introducir una MLG medida directamente, deja vacío el % de grasa.</p>
 
       <h3>Método de metabolismo basal/reposo</h3>
       <select id="bmrMethod">
@@ -489,7 +489,7 @@ header.brand-header{
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 4.0 · Uso docente</span>
+  <span>Versión 5.0 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -522,6 +522,13 @@ function getFFM(){
   const w=val('weight'), bf=val('bf');
   if(Number.isFinite(w)&&Number.isFinite(bf)) return w*(1-bf/100);
   return NaN;
+}
+function updateFFMDisplay(){
+  const w=val('weight'), bf=val('bf');
+  if(Number.isFinite(w) && w>0 && Number.isFinite(bf) && bf>=0 && bf<100){
+    const ffmCalc = w*(1-bf/100);
+    $('ffm').value = ffmCalc.toFixed(1);
+  }
 }
 function harris(sex,w,h,a){
   return sex==='m' ? 88.362 + 13.397*w + 4.799*h - 5.677*a
@@ -559,6 +566,8 @@ function updateFormula(){
 }
 $('bmrMethod').addEventListener('change',updateFormula);
 $('sex').addEventListener('change',updateFormula);
+$('weight').addEventListener('input',updateFFMDisplay);
+$('bf').addEventListener('input',updateFFMDisplay);
 updateFormula();
 
 function allBmr(){
