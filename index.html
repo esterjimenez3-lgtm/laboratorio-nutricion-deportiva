@@ -294,10 +294,29 @@ header.brand-header{
         <div><label for="height">Altura (cm)</label><input id="height" type="number" min="120" max="230" step="0.1" placeholder="Ej. 175"></div>
       </div>
       <div class="row">
-        <div><label for="ffm">Masa libre de grasa (kg)</label><input id="ffm" type="number" min="20" max="180" step="0.1" placeholder="Ej. 58.0"></div>
-        <div><label for="bf">Grasa corporal (%) <span class="badge">opcional</span></label><input id="bf" type="number" min="2" max="70" step="0.1" placeholder="Si no conoces la MLG"></div>
+        <div>
+          <label for="bf">Grasa corporal (%) <span class="badge">opcional</span></label>
+          <input id="bf" type="number" min="2" max="70" step="0.1" placeholder="Ej. 33">
+        </div>
+        <div>
+          <label for="ffmCalc">MLG calculada automáticamente (kg)</label>
+          <input id="ffmCalc" type="text" readonly placeholder="Se calculará con peso + % grasa" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
+        </div>
       </div>
-      <p class="small">Si introduces peso y % de grasa, la app calcula y muestra automáticamente la MLG = peso × (1 − %grasa/100). Si quieres introducir una MLG medida directamente, deja vacío el % de grasa.</p>
+      <div class="row">
+        <div>
+          <label for="ffm">MLG medida / introducida manualmente (kg) <span class="badge">opcional</span></label>
+          <input id="ffm" type="number" min="20" max="180" step="0.1" placeholder="Ej. 58.0">
+        </div>
+        <div style="align-self:end">
+          <button type="button" class="secondary" id="calcFfmBtn" style="width:100%">Calcular MLG ahora</button>
+        </div>
+      </div>
+      <p class="small">
+        Si introduces <strong>peso + % de grasa</strong>, la app calcula automáticamente:
+        <strong>MLG = peso × (1 − %grasa/100)</strong>. Si además introduces una MLG manual,
+        la app utilizará la <strong>MLG manual</strong> en los cálculos.
+      </p>
 
       <h3>Método de metabolismo basal/reposo</h3>
       <select id="bmrMethod">
@@ -489,7 +508,7 @@ header.brand-header{
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 5.0 · Uso docente</span>
+  <span>Versión 6.0 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -516,18 +535,24 @@ function setGetMode(mode){
 function toggleTef(){
   $('tefManual').classList.toggle('hidden',$('tefMode').value==='tenpct');
 }
-function getFFM(){
-  const direct=val('ffm');
-  if(Number.isFinite(direct)) return direct;
-  const w=val('weight'), bf=val('bf');
-  if(Number.isFinite(w)&&Number.isFinite(bf)) return w*(1-bf/100);
-  return NaN;
-}
-function updateFFMDisplay(){
+function calculateFFMFromBF(){
   const w=val('weight'), bf=val('bf');
   if(Number.isFinite(w) && w>0 && Number.isFinite(bf) && bf>=0 && bf<100){
-    const ffmCalc = w*(1-bf/100);
-    $('ffm').value = ffmCalc.toFixed(1);
+    return w*(1-bf/100);
+  }
+  return NaN;
+}
+function getFFM(){
+  const direct=val('ffm');
+  if(Number.isFinite(direct) && direct>0) return direct;
+  return calculateFFMFromBF();
+}
+function updateFFMDisplay(){
+  const calc = calculateFFMFromBF();
+  if(Number.isFinite(calc)){
+    $('ffmCalc').value = calc.toFixed(1).replace('.',',') + ' kg';
+  } else {
+    $('ffmCalc').value = '';
   }
 }
 function harris(sex,w,h,a){
@@ -566,9 +591,13 @@ function updateFormula(){
 }
 $('bmrMethod').addEventListener('change',updateFormula);
 $('sex').addEventListener('change',updateFormula);
-$('weight').addEventListener('input',updateFFMDisplay);
-$('bf').addEventListener('input',updateFFMDisplay);
+['input','change','blur'].forEach(evt=>{
+  $('weight').addEventListener(evt,updateFFMDisplay);
+  $('bf').addEventListener(evt,updateFFMDisplay);
+});
+$('calcFfmBtn').addEventListener('click',updateFFMDisplay);
 updateFormula();
+updateFFMDisplay();
 
 function allBmr(){
   const sex=$('sex').value, a=val('age'), w=val('weight'), h=val('height'), ffm=getFFM();
@@ -599,6 +628,7 @@ function validate(){
 }
 let last={};
 function calculate(){
+  updateFFMDisplay();
   const err=validate(); $('error').textContent=err; if(err) return;
   const bmr=selectedBmr();
   const intake=val('intake');
@@ -635,7 +665,8 @@ function calculate(){
   last={bmr,get,balance,ea,ffm,intake,exercise,neat,tef,method:$('bmrMethod').options[$('bmrMethod').selectedIndex].text,getMode};
 }
 function resetAll(){
-  document.querySelectorAll('input').forEach(i=>i.value='');
+  document.querySelectorAll('input').forEach(i=>{ if(!i.readOnly) i.value=''; });
+  $('ffmCalc').value='';
   $('sex').value='m'; $('bmrMethod').value='mifflin'; $('faf').value='1.55'; $('tefMode').value='manual';
   setGetMode('faf'); toggleTef(); updateFormula();
   ['bmrOut','getOut','balanceOut','eaOut','hrNoVo2Out','hrVo2Out','hrPctOut','hrrPctOut'].forEach(id=>$(id).textContent='—');
