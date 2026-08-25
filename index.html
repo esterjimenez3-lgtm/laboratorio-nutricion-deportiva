@@ -293,6 +293,20 @@ header.brand-header{
         <div><label for="weight">Peso (kg)</label><input id="weight" type="number" min="30" max="250" step="0.1" placeholder="Ej. 70.0"></div>
         <div><label for="height">Altura (cm)</label><input id="height" type="number" min="120" max="230" step="0.1" placeholder="Ej. 175"></div>
       </div>
+
+      <div class="row">
+        <div>
+          <label for="bmiOutInput">IMC calculado (kg/m²)</label>
+          <input id="bmiOutInput" type="text" readonly placeholder="Se calculará con peso + altura" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
+        </div>
+        <div>
+          <label for="bmiCategory">Categoría IMC (adultos ≥18 años)</label>
+          <input id="bmiCategory" type="text" readonly placeholder="Clasificación OMS" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
+        </div>
+      </div>
+      <div id="bmiGuidance" class="small" style="margin-top:6px">
+        Clasificación OMS para adultos: &lt;18,5 bajo peso; 18,5–24,9 normopeso; 25,0–29,9 sobrepeso; ≥30 obesidad (con subcategorías). En personas deportistas, el IMC debe interpretarse con cautela porque no distingue masa grasa de masa muscular.
+      </div>
       <div class="row">
         <div>
           <label for="bf">Grasa corporal (%) <span class="badge">opcional</span></label>
@@ -346,6 +360,15 @@ header.brand-header{
           <option value="1.725">Muy activo · 1,725</option>
           <option value="1.9">Extremadamente activo · 1,90</option>
         </select>
+        <div class="goodnote" style="margin-top:10px">
+          <strong>Orientación para seleccionar el factor de actividad:</strong><br>
+          • <strong>Sedentario:</strong> poco o ningún ejercicio físico; trabajo principalmente de oficina.<br>
+          • <strong>Ligeramente activo:</strong> ejercicio físico 1–3 días/semana.<br>
+          • <strong>Moderadamente activo:</strong> ejercicio físico 3–5 días/semana.<br>
+          • <strong>Muy activo:</strong> ejercicio físico 6–7 días/semana.<br>
+          • <strong>Extremadamente activo:</strong> ejercicio físico 2 veces al día.<br>
+          <span class="small">Estas categorías son aproximaciones prácticas y no sustituyen una medición individual del gasto energético.</span>
+        </div>
         <div class="eq" style="margin-top:10px">GET estimado = TMB × FAF</div>
         <p class="small">Los multiplicadores de actividad son una aproximación práctica. No deben interpretarse como una medición individual del gasto energético.</p>
       </div>
@@ -366,8 +389,34 @@ header.brand-header{
 
       <hr>
       <h3>Ingesta energética</h3>
-      <label for="intake">Ingesta energética (kcal/día)</label>
-      <input id="intake" type="number" min="0" step="1" placeholder="Ej. 2600">
+      <div class="tabs">
+        <button type="button" id="tabIntakeDirect" class="tab on" onclick="setIntakeMode('direct')">Introducir kcal/día</button>
+        <button type="button" id="tabIntakeAtwater" class="tab" onclick="setIntakeMode('atwater')">Calcular con factores de Atwater</button>
+      </div>
+
+      <div id="intakeDirectPanel">
+        <label for="intake">Ingesta energética total (kcal/día)</label>
+        <input id="intake" type="number" min="0" step="1" placeholder="Ej. 2600">
+      </div>
+
+      <div id="intakeAtwaterPanel" class="hidden">
+        <div class="row">
+          <div><label for="proteinG">Proteínas (g/día)</label><input id="proteinG" type="number" min="0" step="0.1" placeholder="Ej. 110"></div>
+          <div><label for="carbG">Hidratos de carbono (g/día)</label><input id="carbG" type="number" min="0" step="0.1" placeholder="Ej. 350"></div>
+        </div>
+        <div class="row">
+          <div><label for="fatG">Grasas (g/día)</label><input id="fatG" type="number" min="0" step="0.1" placeholder="Ej. 80"></div>
+          <div><label for="alcoholG">Alcohol (g/día)</label><input id="alcoholG" type="number" min="0" step="0.1" placeholder="Ej. 0"></div>
+        </div>
+        <div class="eq" style="margin-top:10px">Energía (kcal) = 4·proteína + 4·hidratos + 9·grasa + 7·alcohol</div>
+        <div class="kpi alt" style="margin-top:10px">
+          <div>Ingesta calculada por Atwater</div>
+          <div class="v" id="atwaterOut">—</div>
+          <div class="u">kcal/día</div>
+        </div>
+        <p class="small">Los factores generales de Atwater estiman la energía metabolizable aportada por los macronutrientes. Son una aproximación; el valor energético real puede variar según alimento, digestibilidad, composición y factores específicos.</p>
+      </div>
+
       <div class="eq" style="margin-top:10px">Balance energético = Ingesta energética − GET</div>
     </section>
   </div>
@@ -466,6 +515,8 @@ header.brand-header{
         <tr><td>Método rápido (Krause)</td><td>H: 24·peso · M: 22·peso</td></tr>
         <tr><td>Keytel sin VO₂máx</td><td>Ecuaciones específicas por sexo con FC media, peso y edad; resultado en kJ/min convertido a kcal/min ÷ 4,184.</td></tr>
         <tr><td>Keytel con VO₂máx</td><td>Ecuaciones específicas por sexo con FC media, VO₂máx, peso y edad; resultado en kJ/min convertido a kcal/min ÷ 4,184.</td></tr>
+        <tr><td>IMC</td><td>IMC = peso (kg) / talla² (m²). Clasificación OMS para adultos ≥18 años.</td></tr>
+        <tr><td>Atwater general</td><td>Energía = 4·proteína + 4·hidratos + 9·grasa + 7·alcohol (kcal/día).</td></tr>
       </tbody>
     </table>
     <p class="small">Nota terminológica: distintas fuentes denominan BMR/TMB o RMR/REE a estimaciones obtenidas bajo condiciones no idénticas. Esta herramienta mantiene la terminología docente “metabolismo basal/reposo”, pero conviene discutir la diferencia en clase.</p>
@@ -501,6 +552,23 @@ header.brand-header{
       </tbody>
     </table>
 
+    <h3>Referencias para IMC y factores energéticos</h3>
+    <table>
+      <thead><tr><th>Concepto</th><th>Referencia APA 7.ª</th><th>Aplicación en la app</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>IMC en adultos</strong></td>
+          <td>World Health Organization. (2000). <em>Obesity: Preventing and managing the global epidemic: Report of a WHO consultation</em> (WHO Technical Report Series No. 894). World Health Organization.</td>
+          <td>Clasificación aplicada a adultos ≥18 años: bajo peso, normopeso, sobrepeso y obesidad. En deportistas se muestra una advertencia porque el IMC no distingue masa grasa de masa libre de grasa.</td>
+        </tr>
+        <tr>
+          <td><strong>Factores energéticos de Atwater</strong></td>
+          <td>Food and Agriculture Organization of the United Nations. (2003). <em>Food energy—Methods of analysis and conversion factors</em> (FAO Food and Nutrition Paper No. 77). FAO.</td>
+          <td>Estimación de energía metabolizable mediante 4 kcal/g para proteínas, 4 kcal/g para hidratos de carbono, 9 kcal/g para grasas y 7 kcal/g para alcohol.</td>
+        </tr>
+      </tbody>
+    </table>
+
     <h3>Referencias del cálculo mediante frecuencia cardiaca</h3>
     <p class="small"><strong>Keytel et al.:</strong> Keytel LR, Goedecke JH, Noakes TD, et al. <em>Prediction of energy expenditure from heart rate monitoring during submaximal exercise.</em> J Sports Sci. 2005;23(3):289–297. doi:10.1080/02640410470001730089. <strong>Otras referencias:</strong> Hiilloskorpi HK, et al. <em>Use of heart rate to predict energy expenditure from low to high activity levels.</em> Int J Sports Med. 2003;24(5):332–336. Crouter SE, Albright C, Bassett DR Jr. <em>Accuracy of Polar S410 heart rate monitor to estimate energy cost of exercise.</em> Med Sci Sports Exerc. 2004;36(8):1433–1439.</p>
   </section>
@@ -508,17 +576,18 @@ header.brand-header{
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 6.0 · Uso docente</span>
+  <span>Versión 7.0 · Uso docente</span>
 </div>
 
 <footer style="display:none">
   <strong>Herramienta educativa · no clínica.</strong> Los resultados dependen de la calidad de los datos de entrada y de los supuestos de cada ecuación. 
-  Referencias de base: FAO/WHO/UNU (2001/2004), Schofield (1985), Katch &amp; McArdle (1975), Mahan &amp; Raymond/Krause (2017), Roza &amp; Shizgal (1984), Pavlidou et al. (2023), Mifflin et al. (1990), Keytel et al. (2005), Hiilloskorpi et al. (2003), Crouter et al. (2004) y consenso IOC 2023 sobre disponibilidad energética/REDs. 
+  Referencias de base: FAO/WHO/UNU (2001/2004), Schofield (1985), Katch &amp; McArdle (1975), Mahan &amp; Raymond/Krause (2017), Roza &amp; Shizgal (1984), Pavlidou et al. (2023), Mifflin et al. (1990), WHO (2000), FAO (2003), Keytel et al. (2005), Hiilloskorpi et al. (2003), Crouter et al. (2004) y consenso IOC 2023 sobre disponibilidad energética/REDs. 
   Los factores de actividad y el método rápido se presentan como aproximaciones docentes.
 </footer>
 
 <script>
 let getMode='faf';
+let intakeMode='direct';
 
 const $ = id => document.getElementById(id);
 const val = id => parseFloat($(id).value);
@@ -534,6 +603,55 @@ function setGetMode(mode){
 }
 function toggleTef(){
   $('tefManual').classList.toggle('hidden',$('tefMode').value==='tenpct');
+}
+function calculateBMI(){
+  const w=val('weight'), hcm=val('height'), age=val('age');
+  if(Number.isFinite(w) && w>0 && Number.isFinite(hcm) && hcm>0){
+    const hm=hcm/100;
+    const bmi=w/(hm*hm);
+    $('bmiOutInput').value=bmi.toFixed(1).replace('.',',');
+    let cat='';
+    if(Number.isFinite(age) && age<18){
+      cat='Requiere percentiles por edad/sexo';
+      $('bmiGuidance').innerHTML='Para menores de 18 años no deben usarse los puntos de corte de IMC de adultos; se requieren referencias por edad y sexo. Esta versión del módulo está diseñada para adultos.';
+    }else{
+      if(bmi<18.5) cat='Bajo peso';
+      else if(bmi<25) cat='Normopeso';
+      else if(bmi<30) cat='Sobrepeso';
+      else if(bmi<35) cat='Obesidad grado I';
+      else if(bmi<40) cat='Obesidad grado II';
+      else cat='Obesidad grado III';
+      let extra='';
+      if(Number.isFinite(age) && age>=65) extra=' En adultos mayores, el IMC debe interpretarse junto con composición corporal, funcionalidad y contexto clínico.';
+      $('bmiGuidance').innerHTML='Clasificación OMS para adultos: &lt;18,5 bajo peso; 18,5–24,9 normopeso; 25,0–29,9 sobrepeso; ≥30 obesidad (con subcategorías). En personas deportistas, el IMC debe interpretarse con cautela porque no distingue masa grasa de masa muscular.'+extra;
+    }
+    $('bmiCategory').value=cat;
+  }else{
+    $('bmiOutInput').value='';
+    $('bmiCategory').value='';
+  }
+}
+function setIntakeMode(mode){
+  intakeMode=mode;
+  $('intakeDirectPanel').classList.toggle('hidden',mode!=='direct');
+  $('intakeAtwaterPanel').classList.toggle('hidden',mode!=='atwater');
+  $('tabIntakeDirect').classList.toggle('on',mode==='direct');
+  $('tabIntakeAtwater').classList.toggle('on',mode==='atwater');
+  updateAtwater();
+}
+function atwaterCalories(){
+  const p=val('proteinG'), c=val('carbG'), f=val('fatG'), a=val('alcoholG');
+  const vals=[p,c,f,a].map(x=>Number.isFinite(x)?x:0);
+  return 4*vals[0]+4*vals[1]+9*vals[2]+7*vals[3];
+}
+function updateAtwater(){
+  if(intakeMode==='atwater'){
+    const kcal=atwaterCalories();
+    $('atwaterOut').textContent=fmt(kcal);
+  }
+}
+function getIntake(){
+  return intakeMode==='direct' ? val('intake') : atwaterCalories();
 }
 function calculateFFMFromBF(){
   const w=val('weight'), bf=val('bf');
@@ -593,11 +711,19 @@ $('bmrMethod').addEventListener('change',updateFormula);
 $('sex').addEventListener('change',updateFormula);
 ['input','change','blur'].forEach(evt=>{
   $('weight').addEventListener(evt,updateFFMDisplay);
+  $('weight').addEventListener(evt,calculateBMI);
+  $('height').addEventListener(evt,calculateBMI);
+  $('age').addEventListener(evt,calculateBMI);
   $('bf').addEventListener(evt,updateFFMDisplay);
 });
 $('calcFfmBtn').addEventListener('click',updateFFMDisplay);
+['proteinG','carbG','fatG','alcoholG'].forEach(id=>{
+  ['input','change','blur'].forEach(evt=>$(id).addEventListener(evt,updateAtwater));
+});
 updateFormula();
 updateFFMDisplay();
+calculateBMI();
+updateAtwater();
 
 function allBmr(){
   const sex=$('sex').value, a=val('age'), w=val('weight'), h=val('height'), ffm=getFFM();
@@ -631,7 +757,7 @@ function calculate(){
   updateFFMDisplay();
   const err=validate(); $('error').textContent=err; if(err) return;
   const bmr=selectedBmr();
-  const intake=val('intake');
+  const intake=getIntake();
   const exercise=Number.isFinite(val('exercise'))?val('exercise'):0;
   const neat=Number.isFinite(val('neat'))?val('neat'):0;
   let tef=0, get=NaN;
@@ -666,9 +792,9 @@ function calculate(){
 }
 function resetAll(){
   document.querySelectorAll('input').forEach(i=>{ if(!i.readOnly) i.value=''; });
-  $('ffmCalc').value='';
+  $('ffmCalc').value=''; $('bmiOutInput').value=''; $('bmiCategory').value=''; $('atwaterOut').textContent='—';
   $('sex').value='m'; $('bmrMethod').value='mifflin'; $('faf').value='1.55'; $('tefMode').value='manual';
-  setGetMode('faf'); toggleTef(); updateFormula();
+  setGetMode('faf'); setIntakeMode('direct'); toggleTef(); updateFormula(); calculateBMI();
   ['bmrOut','getOut','balanceOut','eaOut','hrNoVo2Out','hrVo2Out','hrPctOut','hrrPctOut'].forEach(id=>$(id).textContent='—');
   $('compareBody').innerHTML='<tr><td colspan="3">Introduce datos y pulsa “Calcular”.</td></tr>';
   $('error').textContent=''; $('hrError').textContent=''; $('hrGuidance').innerHTML='Introduce FC media, duración y los datos del sujeto para obtener una estimación.'; last={};
