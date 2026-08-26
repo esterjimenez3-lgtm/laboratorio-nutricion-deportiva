@@ -240,6 +240,24 @@ header.brand-header{
   .app-content main{padding:14px}
 }
 
+
+/* v8 refinamiento visual */
+.section-title{display:flex;align-items:center;gap:10px}
+.section-icon{width:34px;height:34px;border-radius:10px;display:inline-grid;place-items:center;background:linear-gradient(135deg,#eaf5ff,#eefaf6);border:1px solid #d8e7f2;font-size:18px;flex:0 0 auto}
+.info-btn{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;padding:0;margin-left:6px;border:1px solid #8aa1bf;background:#fff;color:#0f2d5c;font-size:13px;font-weight:900;cursor:pointer;vertical-align:middle}
+.info-btn:hover,.info-btn:focus{background:#eef5fd;outline:2px solid #bcd0e7;outline-offset:1px}
+.info-pop{display:none;margin-top:7px;padding:10px 12px;border-radius:10px;background:#f8fbff;border:1px solid #d9e5f1;color:#38506c;font-size:12.5px;line-height:1.45}
+.info-pop.open{display:block}
+.metric-label{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.balance-status{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:850;border:1px solid transparent}
+.balance-neutral{background:#f3f5f8;color:#4b5563;border-color:#d9dee7}
+.balance-negative{background:#fff2f1;color:#9d2a22;border-color:#f2c7c3}
+.balance-positive{background:#eef8f1;color:#23643d;border-color:#c8e5d1}
+.result-card{position:relative;overflow:hidden}
+.result-card::after{content:"";position:absolute;right:-26px;top:-26px;width:80px;height:80px;border-radius:50%;background:rgba(20,154,160,.08)}
+.ref-list{display:grid;gap:10px;margin-top:10px}
+.ref-item{border-left:4px solid #c8d8ec;background:#fbfdff;padding:10px 12px;border-radius:8px;font-size:12.5px;line-height:1.45}
+.ref-item strong{color:#0f2d5c}
 </style>
 </head>
 <body>
@@ -283,7 +301,7 @@ header.brand-header{
       <div><strong>Uso responsable:</strong> no sustituye una valoración individual ni una medición directa.</div>
     </div>
   <div class="grid">
-    <section class="card" id="datos" id="datos"><h2>1. Datos del sujeto</h2>
+    <section class="card" id="datos" id="datos"><h2 class="section-title"><span class="section-icon">👤</span>1. Datos del sujeto</h2>
       <p class="small">Introduce los datos necesarios. Las ecuaciones predictivas ofrecen <strong>estimaciones</strong>, no mediciones directas.</p>
       <div class="row">
         <div><label for="sex">Sexo según la ecuación</label><select id="sex"><option value="m">Hombre</option><option value="f">Mujer</option></select></div>
@@ -345,7 +363,7 @@ header.brand-header{
       <div id="error"></div>
     </section>
 
-    <section class="card" id="get"><h2>2. Gasto energético total (GET)</h2>
+    <section class="card" id="get"><h2 class="section-title"><span class="section-icon">⚡</span>2. Gasto energético total (GET)</h2>
       <div class="tabs">
         <button id="tabFaf" class="tab on" onclick="setGetMode('faf')">TMB × factor de actividad</button>
         <button id="tabComp" class="tab" onclick="setGetMode('components')">Suma de componentes</button>
@@ -388,7 +406,9 @@ header.brand-header{
       </div>
 
       <hr>
-      <h3>Ingesta energética</h3>
+      <h3 class="metric-label">Ingesta energética
+<button type="button" class="info-btn" data-info="info-intake" aria-label="Información sobre ingesta energética">i</button></h3>
+<div id="info-intake" class="info-pop"><strong>Ingesta energética:</strong> es la cantidad total de energía que una persona consume mediante alimentos y bebidas durante 24 horas.</div>
       <div class="tabs">
         <button type="button" id="tabIntakeDirect" class="tab on" onclick="setIntakeMode('direct')">Introducir kcal/día</button>
         <button type="button" id="tabIntakeAtwater" class="tab" onclick="setIntakeMode('atwater')">Calcular con factores de Atwater</button>
@@ -421,7 +441,7 @@ header.brand-header{
     </section>
   </div>
 
-  <section class="card" id="fc" style="margin-top:18px"><h2>3. Gasto energético del ejercicio mediante frecuencia cardiaca</h2>
+  <section class="card" id="fc" style="margin-top:18px"><h2 class="section-title"><span class="section-icon">❤️</span>3. Gasto energético del ejercicio mediante frecuencia cardiaca</h2>
     <p class="small">Estimación mediante las ecuaciones de <strong>Keytel et al. (2005)</strong>, desarrolladas durante ejercicio submáximo en cinta y cicloergómetro. Puedes calcular con o sin VO₂máx y comparar ambos resultados.</p>
 
     <div class="row3">
@@ -469,12 +489,30 @@ header.brand-header{
     <div class="eq" style="margin-top:8px">Con VO₂máx (M): kcal/min = [−59,3954 + 0,4498·FC + 0,1032·peso + 0,2735·edad + 0,3802·VO₂máx] / 4,184</div>
   </section>
 
-  <section class="card" id="resultados" style="margin-top:18px"><h2>4. Resultados integrados</h2>
+  <section class="card" id="resultados" style="margin-top:18px"><h2 class="section-title"><span class="section-icon">📊</span>4. Resultados integrados</h2>
     <div class="kpiwrap">
-      <div class="kpi"><div>Metabolismo basal/reposo</div><div class="v" id="bmrOut">—</div><div class="u">kcal/día</div></div>
-      <div class="kpi"><div>Gasto energético total</div><div class="v" id="getOut">—</div><div class="u">kcal/día</div></div>
-      <div class="kpi alt"><div>Balance energético</div><div class="v" id="balanceOut">—</div><div class="u">kcal/día · positivo = superávit; negativo = déficit</div></div>
-      <div class="kpi alt"><div>Disponibilidad energética</div><div class="v" id="eaOut">—</div><div class="u">kcal/kg MLG/día</div></div>
+      <div class="kpi result-card">
+        <div class="metric-label">Metabolismo basal/reposo <button type="button" class="info-btn" data-info="info-bmr" aria-label="Información sobre metabolismo basal o en reposo">i</button></div>
+        <div id="info-bmr" class="info-pop"><strong>Metabolismo basal/reposo:</strong> es la tasa de energía que necesita nuestro organismo para realizar las funciones vitales en reposo absoluto.</div>
+        <div class="v" id="bmrOut">—</div><div class="u">kcal/día</div>
+      </div>
+      <div class="kpi result-card">
+        <div class="metric-label">Gasto energético total (GET) <button type="button" class="info-btn" data-info="info-get" aria-label="Información sobre gasto energético total">i</button></div>
+        <div id="info-get" class="info-pop"><strong>Gasto energético total (GET):</strong> es la cantidad de energía o calorías que una persona necesita para garantizar el buen desempeño de actividades fundamentales como el metabolismo basal, la digestión de los alimentos y la actividad física.</div>
+        <div class="v" id="getOut">—</div><div class="u">kcal/día</div>
+      </div>
+      <div class="kpi alt result-card">
+        <div class="metric-label">Balance energético <button type="button" class="info-btn" data-info="info-balance" aria-label="Información sobre balance energético">i</button></div>
+        <div id="info-balance" class="info-pop"><strong>Balance energético:</strong> hace referencia al equilibrio o relación entre la energía que ingerimos mediante alimentos y bebidas y la energía que gasta nuestro organismo.</div>
+        <div class="v" id="balanceOut">—</div><div class="u">kcal/día</div>
+        <div id="balanceStatus" class="balance-status balance-neutral">Sin calcular</div>
+        <div id="balanceExplanation" class="small" style="margin-top:8px"></div>
+      </div>
+      <div class="kpi alt result-card">
+        <div class="metric-label">Disponibilidad energética <button type="button" class="info-btn" data-info="info-ea" aria-label="Información sobre disponibilidad energética">i</button></div>
+        <div id="info-ea" class="info-pop"><strong>Disponibilidad energética:</strong> representa la cantidad de energía procedente de la dieta que, una vez descontado el gasto energético del ejercicio, queda disponible para que el organismo mantenga el resto de sus funciones fisiológicas.</div>
+        <div class="v" id="eaOut">—</div><div class="u">kcal/kg MLG/día</div>
+      </div>
     </div>
 
     <div class="eq" style="margin-top:14px">Disponibilidad energética = (Ingesta energética − gasto energético del EJERCICIO) / masa libre de grasa</div>
@@ -504,7 +542,7 @@ header.brand-header{
     </div>
   </section>
 
-  <section class="card" id="referencias" style="margin-top:18px"><h2>5. Fórmulas incluidas y referencias</h2>
+  <section class="card" id="referencias" style="margin-top:18px"><h2 class="section-title"><span class="section-icon">📚</span>5. Fórmulas incluidas y referencias</h2>
     <table>
       <thead><tr><th>Método</th><th>Fórmula implementada</th></tr></thead>
       <tbody>
@@ -520,63 +558,27 @@ header.brand-header{
       </tbody>
     </table>
     <p class="small">Nota terminológica: distintas fuentes denominan BMR/TMB o RMR/REE a estimaciones obtenidas bajo condiciones no idénticas. Esta herramienta mantiene la terminología docente “metabolismo basal/reposo”, pero conviene discutir la diferencia en clase.</p>
-    <h3>Referencias de las ecuaciones de metabolismo basal/reposo</h3>
-    <table>
-      <thead><tr><th>Método</th><th>Referencia incluida</th><th>Nota metodológica para el alumnado</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>FAO/WHO/UNU – Schofield</strong></td>
-          <td>FAO/WHO/UNU Expert Consultation. <em>Human Energy Requirements. Report of a Joint FAO/WHO/UNU Expert Consultation</em>. Rome, 17–24 October 2001; published by FAO, 2004.<br><br>Schofield WN. Predicting basal metabolic rate, new standards and review of previous work. <em>Hum Nutr Clin Nutr.</em> 1985;39 Suppl 1:5–41.</td>
-          <td>Las ecuaciones por sexo y edad implementadas proceden del trabajo de Schofield y se integran en el marco FAO/WHO/UNU para estimar requerimientos energéticos. Son ecuaciones predictivas poblacionales, no una medición individual.</td>
-        </tr>
-        <tr>
-          <td><strong>Katch–McArdle / basada en MLG</strong></td>
-          <td>Katch FI, McArdle WD. Validity of body composition prediction equations for college men and women. <em>Am J Clin Nutr.</em> 1975;28(2):105–109. doi:10.1093/ajcn/28.2.105.</td>
-          <td>Se incluye como referencia histórica solicitada para el método basado en composición corporal. La ecuación usada por la calculadora es 370 + 21,6 × MLG; conviene distinguir la validación de ecuaciones de composición corporal de la fuente bibliográfica exacta de esta fórmula de gasto en reposo.</td>
-        </tr>
-        <tr>
-          <td><strong>Método rápido</strong></td>
-          <td>Mahan LK, Raymond JL. <em>Krause. Dietoterapia.</em> 14.ª ed. Elsevier; 2017.</td>
-          <td>Aproximación docente basada únicamente en el peso. Al ignorar edad, talla y composición corporal, debe interpretarse con mayor cautela que una medición directa o ecuaciones con más predictores.</td>
-        </tr>
-        <tr>
-          <td><strong>Harris–Benedict</strong></td>
-          <td>Roza AM, Shizgal HM. The Harris Benedict equation reevaluated: resting energy requirements and the body cell mass. <em>Am J Clin Nutr.</em> 1984;40(1):168–182.<br><br>Pavlidou E, Papadopoulou SK, Seroglou K, Giaginis C. Revised Harris–Benedict Equation: New Human Resting Metabolic Rate Equation. <em>Metabolites.</em> 2023;13(2):189. doi:10.3390/metabo13020189.</td>
-          <td><strong>Importante:</strong> las fórmulas 88,362… y 447,593… implementadas en esta app corresponden a la revisión de <strong>Roza &amp; Shizgal (1984)</strong>. El artículo de 2023 desarrolla <strong>otras ecuaciones nuevas</strong> y se incluye como actualización/comparación, no como fuente de esas fórmulas.</td>
-        </tr>
-        <tr>
-          <td><strong>Mifflin–St Jeor</strong></td>
-          <td>Mifflin MD, St Jeor ST, Hill LA, Scott BJ, Daugherty SA, Koh YO. A new predictive equation for resting energy expenditure in healthy individuals. <em>Am J Clin Nutr.</em> 1990;51(2):241–247.</td>
-          <td>Predice gasto energético en reposo a partir de peso, talla, edad y sexo. Como cualquier ecuación predictiva, puede diferir del valor medido mediante calorimetría indirecta.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Referencias para IMC y factores energéticos</h3>
-    <table>
-      <thead><tr><th>Concepto</th><th>Referencia APA 7.ª</th><th>Aplicación en la app</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>IMC en adultos</strong></td>
-          <td>World Health Organization. (2000). <em>Obesity: Preventing and managing the global epidemic: Report of a WHO consultation</em> (WHO Technical Report Series No. 894). World Health Organization.</td>
-          <td>Clasificación aplicada a adultos ≥18 años: bajo peso, normopeso, sobrepeso y obesidad. En deportistas se muestra una advertencia porque el IMC no distingue masa grasa de masa libre de grasa.</td>
-        </tr>
-        <tr>
-          <td><strong>Factores energéticos de Atwater</strong></td>
-          <td>Food and Agriculture Organization of the United Nations. (2003). <em>Food energy—Methods of analysis and conversion factors</em> (FAO Food and Nutrition Paper No. 77). FAO.</td>
-          <td>Estimación de energía metabolizable mediante 4 kcal/g para proteínas, 4 kcal/g para hidratos de carbono, 9 kcal/g para grasas y 7 kcal/g para alcohol.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Referencias del cálculo mediante frecuencia cardiaca</h3>
-    <p class="small"><strong>Keytel et al.:</strong> Keytel LR, Goedecke JH, Noakes TD, et al. <em>Prediction of energy expenditure from heart rate monitoring during submaximal exercise.</em> J Sports Sci. 2005;23(3):289–297. doi:10.1080/02640410470001730089. <strong>Otras referencias:</strong> Hiilloskorpi HK, et al. <em>Use of heart rate to predict energy expenditure from low to high activity levels.</em> Int J Sports Med. 2003;24(5):332–336. Crouter SE, Albright C, Bassett DR Jr. <em>Accuracy of Polar S410 heart rate monitor to estimate energy cost of exercise.</em> Med Sci Sports Exerc. 2004;36(8):1433–1439.</p>
-  </section>
+    <h3>Referencias bibliográficas · APA 7.ª edición</h3>
+<div class="ref-list">
+<div class="ref-item"><strong>FAO/WHO/UNU:</strong> Food and Agriculture Organization of the United Nations. (2004). <em>Human energy requirements: Report of a joint FAO/WHO/UNU expert consultation, Rome, 17–24 October 2001</em> (FAO Food and Nutrition Technical Report Series No. 1). FAO.</div>
+<div class="ref-item"><strong>Schofield:</strong> Schofield, W. N. (1985). Predicting basal metabolic rate, new standards and review of previous work. <em>Human Nutrition. Clinical Nutrition, 39</em>(Suppl. 1), 5–41.</div>
+<div class="ref-item"><strong>Katch &amp; McArdle:</strong> Katch, F. I., &amp; McArdle, W. D. (1975). Validity of body composition prediction equations for college men and women. <em>The American Journal of Clinical Nutrition, 28</em>(2), 105–109. https://doi.org/10.1093/ajcn/28.2.105</div>
+<div class="ref-item"><strong>Método rápido / Krause:</strong> Mahan, L. K., &amp; Raymond, J. L. (2017). <em>Krause. Dietoterapia</em> (14.ª ed.). Elsevier.</div>
+<div class="ref-item"><strong>Harris–Benedict revisada:</strong> Roza, A. M., &amp; Shizgal, H. M. (1984). The Harris Benedict equation reevaluated: Resting energy requirements and the body cell mass. <em>The American Journal of Clinical Nutrition, 40</em>(1), 168–182.</div>
+<div class="ref-item"><strong>Actualización Harris–Benedict:</strong> Pavlidou, E., Papadopoulou, S. K., Seroglou, K., &amp; Giaginis, C. (2023). Revised Harris–Benedict equation: New human resting metabolic rate equation. <em>Metabolites, 13</em>(2), 189. https://doi.org/10.3390/metabo13020189</div>
+<div class="ref-item"><strong>Mifflin–St Jeor:</strong> Mifflin, M. D., St Jeor, S. T., Hill, L. A., Scott, B. J., Daugherty, S. A., &amp; Koh, Y. O. (1990). A new predictive equation for resting energy expenditure in healthy individuals. <em>The American Journal of Clinical Nutrition, 51</em>(2), 241–247.</div>
+<div class="ref-item"><strong>IMC:</strong> World Health Organization. (2000). <em>Obesity: Preventing and managing the global epidemic: Report of a WHO consultation</em> (WHO Technical Report Series No. 894). World Health Organization.</div>
+<div class="ref-item"><strong>Factores de Atwater:</strong> Food and Agriculture Organization of the United Nations. (2003). <em>Food energy—Methods of analysis and conversion factors</em> (FAO Food and Nutrition Paper No. 77). FAO.</div>
+<div class="ref-item"><strong>Gasto energético por frecuencia cardiaca:</strong> Keytel, L. R., Goedecke, J. H., Noakes, T. D., Hiilloskorpi, H., Laukkanen, R., van der Merwe, L., &amp; Lambert, E. V. (2005). Prediction of energy expenditure from heart rate monitoring during submaximal exercise. <em>Journal of Sports Sciences, 23</em>(3), 289–297. https://doi.org/10.1080/02640410470001730089</div>
+<div class="ref-item"><strong>Frecuencia cardiaca y gasto energético:</strong> Hiilloskorpi, H. K., Pasanen, M. E., Fogelholm, M. G., Laukkanen, R. M. T., &amp; Mänttäri, A. T. (2003). Use of heart rate to predict energy expenditure from low to high activity levels. <em>International Journal of Sports Medicine, 24</em>(5), 332–336.</div>
+<div class="ref-item"><strong>Monitorización por frecuencia cardiaca:</strong> Crouter, S. E., Albright, C., &amp; Bassett, D. R., Jr. (2004). Accuracy of Polar S410 heart rate monitor to estimate energy cost of exercise. <em>Medicine &amp; Science in Sports &amp; Exercise, 36</em>(8), 1433–1439.</div>
+<div class="ref-item"><strong>Disponibilidad energética / REDs:</strong> Mountjoy, M., Ackerman, K. E., Bailey, D. M., Burke, L. M., Constantini, N., Hackney, A. C., Heikura, I. A., Melin, A., Pensgaard, A. M., Stellingwerff, T., Sundgot-Borgen, J. K., Torstveit, M. K., Jacobsen, A. U., Verhagen, E., Budgett, R., Engebretsen, L., &amp; Erdener, U. (2023). 2023 International Olympic Committee’s consensus statement on Relative Energy Deficiency in Sport (REDs). <em>British Journal of Sports Medicine, 57</em>(17), 1073–1097.</div>
+</div></section>
 </main></div>
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 7.0 · Uso docente</span>
+  <span>Versión 8.0 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -753,6 +755,22 @@ function validate(){
   return '';
 }
 let last={};
+
+function updateBalanceStatus(balance){
+  const box=$('balanceStatus'), txt=$('balanceExplanation');
+  if(!Number.isFinite(balance)){box.className='balance-status balance-neutral';box.textContent='Sin calcular';txt.textContent='';return;}
+  const threshold=50;
+  if(Math.abs(balance)<=threshold){
+    box.className='balance-status balance-neutral';box.textContent='Balance energético neutro';
+    txt.textContent='La ingesta de energía es aproximadamente igual al gasto energético. Si esta situación se mantiene en el tiempo, la masa corporal tendería a mantenerse estable; esto no significa necesariamente que la disponibilidad energética sea adecuada.';
+  } else if(balance<0){
+    box.className='balance-status balance-negative';box.textContent='Balance energético negativo · Déficit';
+    txt.textContent='El gasto energético supera a la ingesta. Si se mantiene en el tiempo, el organismo recurre a sus reservas energéticas y puede producirse una pérdida de masa corporal.';
+  } else {
+    box.className='balance-status balance-positive';box.textContent='Balance energético positivo · Superávit';
+    txt.textContent='La ingesta energética supera al gasto total. Si se mantiene en el tiempo, el exceso de energía puede contribuir al aumento de masa corporal, en forma de tejido adiposo y/o masa libre de grasa según el contexto.';
+  }
+}
 function calculate(){
   updateFFMDisplay();
   const err=validate(); $('error').textContent=err; if(err) return;
@@ -774,6 +792,7 @@ function calculate(){
   $('bmrOut').textContent=fmt(bmr);
   $('getOut').textContent=fmt(get);
   $('balanceOut').textContent=fmt(balance);
+  updateBalanceStatus(balance);
   $('eaOut').textContent=fmt1(ea);
 
   const methods=allBmr();
@@ -797,6 +816,7 @@ function resetAll(){
   setGetMode('faf'); setIntakeMode('direct'); toggleTef(); updateFormula(); calculateBMI();
   ['bmrOut','getOut','balanceOut','eaOut','hrNoVo2Out','hrVo2Out','hrPctOut','hrrPctOut'].forEach(id=>$(id).textContent='—');
   $('compareBody').innerHTML='<tr><td colspan="3">Introduce datos y pulsa “Calcular”.</td></tr>';
+  updateBalanceStatus(NaN);
   $('error').textContent=''; $('hrError').textContent=''; $('hrGuidance').innerHTML='Introduce FC media, duración y los datos del sujeto para obtener una estimación.'; last={};
 }
 
@@ -898,5 +918,19 @@ function downloadCSV(){
 })();
 </script>
 
+
+<script>
+(function(){
+  document.querySelectorAll('.info-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const target=document.getElementById(btn.dataset.info);
+      if(!target) return;
+      const open=!target.classList.contains('open');
+      document.querySelectorAll('.info-pop.open').forEach(x=>x.classList.remove('open'));
+      if(open) target.classList.add('open');
+    });
+  });
+})();
+</script>
 </body>
 </html>
