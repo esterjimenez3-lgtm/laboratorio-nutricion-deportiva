@@ -258,6 +258,37 @@ header.brand-header{
 .ref-list{display:grid;gap:10px;margin-top:10px}
 .ref-item{border-left:4px solid #c8d8ec;background:#fbfdff;padding:10px 12px;border-radius:8px;font-size:12.5px;line-height:1.45}
 .ref-item strong{color:#0f2d5c}
+
+/* ===== Módulo 2 · Registro dietético ===== */
+.module-switch{display:grid;gap:6px;margin:8px 0 16px}
+.module-btn{border:1px solid #d7e1ed;background:#fff;color:#24364d;padding:10px 11px;border-radius:10px;text-align:left;font-weight:800;cursor:pointer}
+.module-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.m2-only{display:none}.m2-panel{display:none}.m2-panel.active{display:block}
+.m2-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.m2-tab{border:1px solid #cdd9e8;background:#f8fbff;padding:9px 13px;border-radius:9px;font-weight:800;cursor:pointer;color:#29415f}
+.m2-tab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.entry-table,.activity-table,.cfca-table{width:100%;border-collapse:collapse}
+.entry-table th,.entry-table td,.activity-table th,.activity-table td,.cfca-table th,.cfca-table td{border:1px solid #d5dde8;padding:6px;vertical-align:top}
+.entry-table th{background:#dcecf8;color:#173b63;font-size:12px}
+.activity-table th{background:#e6f2e8;color:#31593a;font-size:12px}
+.entry-table input,.entry-table select,.activity-table input,.activity-table select{width:100%;box-sizing:border-box;padding:7px;border:1px solid #ccd6e2;border-radius:6px;background:#fff}
+.entry-table textarea,.activity-table textarea{width:100%;min-height:44px;box-sizing:border-box;padding:7px;border:1px solid #ccd6e2;border-radius:6px;resize:vertical}
+.day-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.day-meta{display:flex;gap:10px;flex-wrap:wrap}.day-meta input{max-width:180px}
+.m2-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.btn-green{background:#2d7b4c;color:#fff;border:none}.btn-teal{background:var(--teal);color:#fff;border:none}.btn-orange{background:#c96f16;color:#fff;border:none}
+.cfca-table th{position:sticky;top:0;background:#d9e5f7;color:#173b63;z-index:1}
+.cfca-table td:first-child{min-width:360px;font-weight:600}.cfca-table select{width:100%;min-width:190px;padding:7px;border:1px solid #ccd6e2;border-radius:6px;background:#fff}
+.progress-box{background:#f3f8fb;border:1px solid #d8e5ef;border-radius:10px;padding:10px 12px;font-size:13px;margin:10px 0}
+.privacy-note{background:#fff8e8;border:1px solid #efdca6;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#655223}
+@media print{
+ header,.sidebar,.app-footer,.edu-banner,.m2-actions,.module-switch,.side-next,.side-head,.side-link{display:none!important}
+ .app-shell{display:block!important;max-width:none!important}.app-content main{padding:0!important}body{background:white!important}
+ .card{box-shadow:none!important;border:none!important}.print-hide{display:none!important}
+ #module1Content{display:none!important}#module2Content{display:block!important}.m2-panel{display:block!important}
+ .cfca-table th{position:static}
+}
+
 </style>
 </head>
 <body>
@@ -280,22 +311,35 @@ header.brand-header{
 
 <div class="app-shell">
   <aside class="sidebar">
-    <div class="side-head">Módulo 1 · Energía</div>
-    <a class="side-link active" href="#datos"><span class="side-dot"></span>Datos y TMB</a>
+    <div class="side-head">Laboratorio</div>
+    <div class="module-switch">
+      <button class="module-btn active" id="moduleBtn1" type="button" onclick="showModule(1)">⚡ Módulo 1 · Energía</button>
+      <button class="module-btn" id="moduleBtn2" type="button" onclick="showModule(2)">📝 Módulo 2 · Registro dietético</button>
+    </div>
+    <div id="m1Side">
+      <div class="side-head">Módulo 1 · Energía</div>
+      <a class="side-link active" href="#datos"><span class="side-dot"></span>Datos y TMB</a>
     <a class="side-link" href="#get"><span class="side-dot"></span>Gasto energético total</a>
     <a class="side-link" href="#fc"><span class="side-dot"></span>Gasto del ejercicio por FC</a>
     <a class="side-link" href="#resultados"><span class="side-dot"></span>Resultados integrados</a>
     <a class="side-link" href="#referencias"><span class="side-dot"></span>Fórmulas y referencias</a>
 
+    </div>
+    <div id="m2Side" class="m2-only">
+      <div class="side-head">Módulo 2 · Registro dietético</div>
+      <a class="side-link" href="#m2-registro"><span class="side-dot"></span>Registro de 3 días</a>
+      <a class="side-link" href="#m2-cfca"><span class="side-dot"></span>Frecuencia de consumo</a>
+      <a class="side-link" href="#m2-export"><span class="side-dot"></span>Exportación</a>
+    </div>
     <div class="side-next">
       <h4>Próximos módulos</h4>
-      <div>Módulo 2 · Composición corporal</div>
-      <div>Módulo 3 · Hidratación</div>
-      <div>Módulo 4 · Hidratos de carbono</div>
-      <div>Módulo 5 · Proteínas</div>
+      <div>Módulo 3 · Composición corporal</div>
+      <div>Módulo 4 · Hidratación</div>
+      <div>Módulo 5 · Hidratos de carbono</div>
+      <div>Módulo 6 · Proteínas</div>
     </div>
   </aside>
-  <div class="app-content"><main>
+  <div class="app-content"><main><div id="module1Content">
     <div class="edu-banner">
       <div><strong>Herramienta educativa:</strong> introduce datos, compara métodos y analiza sus limitaciones. Los resultados son estimaciones y deben interpretarse dentro del contexto del deportista.</div>
       <div><strong>Uso responsable:</strong> no sustituye una valoración individual ni una medición directa.</div>
@@ -574,11 +618,103 @@ header.brand-header{
 <div class="ref-item"><strong>Monitorización por frecuencia cardiaca:</strong> Crouter, S. E., Albright, C., &amp; Bassett, D. R., Jr. (2004). Accuracy of Polar S410 heart rate monitor to estimate energy cost of exercise. <em>Medicine &amp; Science in Sports &amp; Exercise, 36</em>(8), 1433–1439.</div>
 <div class="ref-item"><strong>Disponibilidad energética / REDs:</strong> Mountjoy, M., Ackerman, K. E., Bailey, D. M., Burke, L. M., Constantini, N., Hackney, A. C., Heikura, I. A., Melin, A., Pensgaard, A. M., Stellingwerff, T., Sundgot-Borgen, J. K., Torstveit, M. K., Jacobsen, A. U., Verhagen, E., Budgett, R., Engebretsen, L., &amp; Erdener, U. (2023). 2023 International Olympic Committee’s consensus statement on Relative Energy Deficiency in Sport (REDs). <em>British Journal of Sports Medicine, 57</em>(17), 1073–1097.</div>
 </div></section>
+
+</div>
+<div id="module2Content" style="display:none">
+  <div class="edu-banner">
+    <div><strong>Módulo 2 · Registro dietético:</strong> completa el registro prospectivo de 3 días y el cuestionario retrospectivo de frecuencia de consumo.</div>
+    <div><strong>Privacidad:</strong> los datos se guardan únicamente en este navegador salvo que los exportes.</div>
+  </div>
+  <section class="card" id="m2-registro">
+    <h2 class="section-title"><span class="section-icon">📝</span>1. Registro dietético y de actividad · 3 días</h2>
+    <p class="small">Incluye los mismos campos de la plantilla docente: hora, alimento/bebida/suplemento, cantidad, pesada o estimada, preparación/cocinado, marca/ingredientes/añadidos/observaciones, además de actividad física y actividad cotidiana.</p>
+    <div class="privacy-note"><strong>Importante:</strong> registra lo consumido con fidelidad. La herramienta no evalúa si tu alimentación es “buena” o “mala”.</div>
+    <label for="m2Student">Nombre y apellidos</label><input id="m2Student" type="text" placeholder="Nombre Apellido Apellido">
+    <div class="m2-tabs">
+      <button type="button" class="m2-tab active" onclick="showDay(1)">Día 1</button>
+      <button type="button" class="m2-tab" onclick="showDay(2)">Día 2</button>
+      <button type="button" class="m2-tab" onclick="showDay(3)">Día 3</button>
+    </div>
+    <div id="dietDays"></div>
+    <div class="m2-actions print-hide">
+      <button type="button" class="secondary" onclick="addDietRow(currentDay)">＋ Añadir fila de ingesta</button>
+      <button type="button" class="secondary" onclick="addActivityRow(currentDay)">＋ Añadir fila de actividad</button>
+      <button type="button" class="btn-green" onclick="saveModule2()">Guardar en este navegador</button>
+      <button type="button" class="secondary" onclick="clearModule2()">Limpiar módulo 2</button>
+    </div>
+  </section>
+  <section class="card" id="m2-cfca" style="margin-top:18px">
+    <h2 class="section-title"><span class="section-icon">📋</span>2. Cuestionario de frecuencia de consumo alimentario (CFCA)</h2>
+    <p>Adaptación docente del CFCA corto de Trinidad Rodríguez et al. (2008). Se conserva el listado de <strong>45 ítems</strong> y las categorías de frecuencia ampliadas de tu plantilla. Selecciona una sola opción por alimento según tu consumo medio durante el último año.</p>
+    <div class="note"><strong>Nota metodológica:</strong> al modificar las categorías de respuesta, esta versión no debe considerarse idéntica al instrumento validado original.</div>
+    <div id="cfcaProgress" class="progress-box">0 de 45 alimentos respondidos.</div>
+    <div style="overflow:auto;max-height:650px">
+      <table class="cfca-table"><thead><tr><th>Alimento</th><th>Consumo medio durante el último año</th></tr></thead><tbody><tr><td>Leche</td><td><select class="cfca-select" data-item="0"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Yogur</td><td><select class="cfca-select" data-item="1"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Chocolate: tableta, bombones, “Kit Kat”, “Mars”…</td><td><select class="cfca-select" data-item="2"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Cereales inflados de desayuno (“Corn-Flakes”, “Kellog’s”)</td><td><select class="cfca-select" data-item="3"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Galletas tipo “maría”</td><td><select class="cfca-select" data-item="4"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Galletas con chocolate, crema…</td><td><select class="cfca-select" data-item="5"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Magdalenas, bizcocho…</td><td><select class="cfca-select" data-item="6"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Ensaimada, donut, croissant…</td><td><select class="cfca-select" data-item="7"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Ensalada: lechuga, tomate, escarola…</td><td><select class="cfca-select" data-item="8"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Judías verdes, acelgas o espinacas</td><td><select class="cfca-select" data-item="9"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Verduras de guarnición: berenjena, champiñones</td><td><select class="cfca-select" data-item="10"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Patatas al horno, fritas o hervidas</td><td><select class="cfca-select" data-item="11"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Legumbres: lentejas, garbanzos, judías…</td><td><select class="cfca-select" data-item="12"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Arroz blanco, paella</td><td><select class="cfca-select" data-item="13"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Pasta: fideos, macarrones, espaguetis…</td><td><select class="cfca-select" data-item="14"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Sopas y cremas</td><td><select class="cfca-select" data-item="15"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Huevos</td><td><select class="cfca-select" data-item="16"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Pollo o pavo</td><td><select class="cfca-select" data-item="17"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Ternera, cerdo, cordero (bistec, empanada,…)</td><td><select class="cfca-select" data-item="18"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Carne picada, longaniza, hamburguesa</td><td><select class="cfca-select" data-item="19"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Pescado blanco: merluza, mero,…</td><td><select class="cfca-select" data-item="20"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Pescado azul: sardinas, atún, salmón,…</td><td><select class="cfca-select" data-item="21"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Marisco: mejillones, gambas, langostinos, calamares,…</td><td><select class="cfca-select" data-item="22"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Croquetas, empanadillas, pizza</td><td><select class="cfca-select" data-item="23"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Pan (en bocadillo, con las comidas,…)</td><td><select class="cfca-select" data-item="24"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Jamón salado, dulce, embutidos</td><td><select class="cfca-select" data-item="25"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Queso blanco o fresco (Burgos,…) o bajo en calorías</td><td><select class="cfca-select" data-item="26"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Otros quesos: curados o semicurados, cremosos</td><td><select class="cfca-select" data-item="27"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Frutas cítricas: naranja, mandarina,…</td><td><select class="cfca-select" data-item="28"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Otras frutas: manzana, pera, melocotón, plátano…</td><td><select class="cfca-select" data-item="29"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Frutas en conserva (en almíbar…)</td><td><select class="cfca-select" data-item="30"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Zumos de fruta natural</td><td><select class="cfca-select" data-item="31"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Zumos de fruta comercial</td><td><select class="cfca-select" data-item="32"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Frutos secos: cacahuetes, avellanas, almendras,…</td><td><select class="cfca-select" data-item="33"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Postres lácteos: natillas, flan, requesón</td><td><select class="cfca-select" data-item="34"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Pasteles de crema o chocolate</td><td><select class="cfca-select" data-item="35"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Bolsas de aperitivos (“chips”, “chetos”, “fritos”…)</td><td><select class="cfca-select" data-item="36"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Golosinas: gominolas, caramelos…</td><td><select class="cfca-select" data-item="37"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Helados</td><td><select class="cfca-select" data-item="38"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Bebidas azucaradas (“Coca-Cola”, “Fanta”…)</td><td><select class="cfca-select" data-item="39"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Bebidas bajas en calorías (Coca-Cola light…)</td><td><select class="cfca-select" data-item="40"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Vino, sangría</td><td><select class="cfca-select" data-item="41"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Cerveza</td><td><select class="cfca-select" data-item="42"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Cerveza sin alcohol</td><td><select class="cfca-select" data-item="43"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr>
+<tr><td>Bebidas destiladas: whisky, ginebra, coñac,…</td><td><select class="cfca-select" data-item="44"><option value="">Selecciona una frecuencia</option><option value="Nunca o &lt;1 vez/mes">Nunca o &lt;1 vez/mes</option><option value="1-3 veces/mes">1-3 veces/mes</option><option value="1 vez/semana">1 vez/semana</option><option value="2-4 veces/semana">2-4 veces/semana</option><option value="5-6 veces/semana">5-6 veces/semana</option><option value="1 vez/día">1 vez/día</option><option value="2-3 veces/día">2-3 veces/día</option><option value="4-5 veces/día">4-5 veces/día</option><option value="≥6 veces/día">≥6 veces/día</option></select></td></tr></tbody></table>
+    </div>
+    <p class="small"><strong>Referencia:</strong> Trinidad Rodríguez, I., Fernández Ballart, J., Cucó Pastor, G., Biarnés Jordà, E., &amp; Arija Val, V. (2008). Validación de un cuestionario de frecuencia de consumo alimentario corto: reproducibilidad y validez. <em>Nutrición Hospitalaria, 23</em>(3), 242–252.</p>
+  </section>
+  <section class="card" id="m2-export" style="margin-top:18px">
+    <h2 class="section-title"><span class="section-icon">📤</span>3. Exportar y entregar</h2>
+    <p>Puedes exportar cada instrumento o el módulo completo. Los archivos <strong>.xls</strong> se abren directamente en Excel. Para PDF, la app abre la vista de impresión del navegador: selecciona <strong>Guardar como PDF</strong>.</p>
+    <div class="m2-actions">
+      <button type="button" class="btn-green" onclick="exportDietXLS()">Excel · Registro 3 días</button>
+      <button type="button" class="btn-green" onclick="exportCFCA_XLS()">Excel · CFCA</button>
+      <button type="button" class="btn-teal" onclick="exportAllXLS()">Excel · Todo el módulo</button>
+      <button type="button" class="btn-orange" onclick="printModule2()">PDF · Imprimir/Guardar</button>
+    </div>
+    <div class="goodnote"><strong>Antes de exportar:</strong> comprueba que los tres días están completos y que el CFCA tiene una respuesta para cada uno de los 45 alimentos.</div>
+  </section>
+</div>
+
 </main></div>
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 8.0 · Uso docente</span>
+  <span>Versión 9.0 · Módulos 1–2 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -932,5 +1068,65 @@ function downloadCSV(){
   });
 })();
 </script>
+
+<script>
+let currentDay=1;
+const dietRowsDefault=12, activityRowsDefault=5;
+function m2esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function showModule(n){
+ const m1=document.getElementById('module1Content'),m2=document.getElementById('module2Content');
+ m1.style.display=n===1?'block':'none';m2.style.display=n===2?'block':'none';
+ document.getElementById('m1Side').style.display=n===1?'block':'none';document.getElementById('m2Side').style.display=n===2?'block':'none';
+ document.getElementById('moduleBtn1').classList.toggle('active',n===1);document.getElementById('moduleBtn2').classList.toggle('active',n===2);
+ if(n===2){renderDietDays();restoreModule2();updateCFCAProgress();window.scrollTo({top:0,behavior:'smooth'});}
+}
+function dietRowHTML(day,idx,data={}){
+ return `<tr><td><input class="d-time" type="time" value="${m2esc(data.time||'')}"></td>
+ <td><textarea class="d-food" placeholder="Alimento, bebida o suplemento">${m2esc(data.food||'')}</textarea></td>
+ <td><input class="d-amount" type="text" value="${m2esc(data.amount||'')}" placeholder="g, mL, unidad, taza…"></td>
+ <td><select class="d-method"><option value=""></option><option ${data.method==='Pesada'?'selected':''}>Pesada</option><option ${data.method==='Estimada'?'selected':''}>Estimada</option></select></td>
+ <td><input class="d-prep" type="text" value="${m2esc(data.prep||'')}" placeholder="Plancha, horno, crudo…"></td>
+ <td><textarea class="d-notes" placeholder="Marca, ingredientes, añadidos…">${m2esc(data.notes||'')}</textarea></td></tr>`;
+}
+function activityRowHTML(idx,data={}){
+ return `<tr><td><input class="a-time" type="time" value="${m2esc(data.time||'')}"></td>
+ <td><input class="a-act" type="text" value="${m2esc(data.activity||'')}" placeholder="Carrera, caminar, fuerza…"></td>
+ <td><input class="a-dur" type="text" value="${m2esc(data.duration||'')}" placeholder="min"></td>
+ <td><input class="a-int" type="text" value="${m2esc(data.intensity||'')}" placeholder="RPE, FC, ritmo…"></td>
+ <td><input class="a-notes" type="text" value="${m2esc(data.notes||'')}"></td></tr>`;
+}
+function dayHTML(day){
+ let rows='',arows='';for(let i=0;i<dietRowsDefault;i++)rows+=dietRowHTML(day,i);for(let i=0;i<activityRowsDefault;i++)arows+=activityRowHTML(i);
+ return `<div class="m2-panel ${day===1?'active':''}" id="dietDay${day}">
+ <div class="day-head"><h3>Día ${day}</h3><div class="day-meta"><label>Fecha <input class="day-date" type="date"></label><label>Día de la semana <input class="day-weekday" type="text"></label></div></div>
+ <div style="overflow:auto"><table class="entry-table"><thead><tr><th>Hora</th><th>Comida / alimento / bebida / suplemento</th><th>Cantidad</th><th>Pesada o estimada</th><th>Preparación / cocinado</th><th>Marca, ingredientes, añadidos u observaciones</th></tr></thead><tbody class="diet-body">${rows}</tbody></table></div>
+ <h3>Actividad física y actividad cotidiana</h3>
+ <div style="overflow:auto"><table class="activity-table"><thead><tr><th>Hora</th><th>Actividad</th><th>Duración</th><th>Intensidad / datos disponibles</th><th>Observaciones</th></tr></thead><tbody class="activity-body">${arows}</tbody></table></div>
+ <label>Comentarios del día (opcional)</label><textarea class="day-comments" rows="3" style="width:100%;box-sizing:border-box" placeholder="Contexto, lugar de las comidas, incidencias que hayan dificultado el registro…"></textarea></div>`;
+}
+function renderDietDays(){const h=document.getElementById('dietDays');if(h.dataset.rendered)return;h.innerHTML=[1,2,3].map(dayHTML).join('');h.dataset.rendered='1';}
+function showDay(day){currentDay=day;document.querySelectorAll('#dietDays .m2-panel').forEach((p,i)=>p.classList.toggle('active',i===day-1));document.querySelectorAll('#module2Content .m2-tab').forEach((b,i)=>b.classList.toggle('active',i===day-1));}
+function addDietRow(day){const b=document.querySelector(`#dietDay${day} .diet-body`);b.insertAdjacentHTML('beforeend',dietRowHTML(day,b.children.length));}
+function addActivityRow(day){const b=document.querySelector(`#dietDay${day} .activity-body`);b.insertAdjacentHTML('beforeend',activityRowHTML(b.children.length));}
+function collectDay(day){const p=document.getElementById(`dietDay${day}`);return{date:p.querySelector('.day-date').value,weekday:p.querySelector('.day-weekday').value,comments:p.querySelector('.day-comments').value,
+ diet:[...p.querySelectorAll('.diet-body tr')].map(r=>({time:r.querySelector('.d-time').value,food:r.querySelector('.d-food').value,amount:r.querySelector('.d-amount').value,method:r.querySelector('.d-method').value,prep:r.querySelector('.d-prep').value,notes:r.querySelector('.d-notes').value})),
+ activity:[...p.querySelectorAll('.activity-body tr')].map(r=>({time:r.querySelector('.a-time').value,activity:r.querySelector('.a-act').value,duration:r.querySelector('.a-dur').value,intensity:r.querySelector('.a-int').value,notes:r.querySelector('.a-notes').value}))};}
+function collectModule2(){return{student:document.getElementById('m2Student').value,days:[1,2,3].map(collectDay),cfca:[...document.querySelectorAll('.cfca-select')].map(s=>({item:s.closest('tr').cells[0].textContent,frequency:s.value}))};}
+function saveModule2(show=true){localStorage.setItem('laboratorioNutricionModulo2',JSON.stringify(collectModule2()));if(show)alert('Datos del Módulo 2 guardados en este navegador.');}
+function restoreModule2(){const raw=localStorage.getItem('laboratorioNutricionModulo2');if(!raw)return;try{const d=JSON.parse(raw);document.getElementById('m2Student').value=d.student||'';(d.days||[]).forEach((x,i)=>{const p=document.getElementById(`dietDay${i+1}`);if(!p)return;p.querySelector('.day-date').value=x.date||'';p.querySelector('.day-weekday').value=x.weekday||'';p.querySelector('.day-comments').value=x.comments||'';p.querySelector('.diet-body').innerHTML=(x.diet||[]).map((q,j)=>dietRowHTML(i+1,j,q)).join('');p.querySelector('.activity-body').innerHTML=(x.activity||[]).map((q,j)=>activityRowHTML(j,q)).join('');});(d.cfca||[]).forEach((x,i)=>{const s=document.querySelectorAll('.cfca-select')[i];if(s)s.value=x.frequency||'';});}catch(e){}}
+function clearModule2(){if(confirm('¿Quieres eliminar todos los datos guardados del Módulo 2 en este navegador?')){localStorage.removeItem('laboratorioNutricionModulo2');location.reload();}}
+function updateCFCAProgress(){const a=[...document.querySelectorAll('.cfca-select')],n=a.filter(s=>s.value).length,p=document.getElementById('cfcaProgress');if(p)p.textContent=`${n} de ${a.length} alimentos respondidos${n===a.length?' · Cuestionario completo.':'.'}`;}
+document.addEventListener('change',e=>{if(document.getElementById('module2Content')?.contains(e.target)){saveModule2(false);if(e.target.classList.contains('cfca-select'))updateCFCAProgress();}});
+function xlsBlob(tables,title){const style='<style>table{border-collapse:collapse}th,td{border:1px solid #777;padding:5px}th{background:#dbe8f5}</style>';const content='<html><head><meta charset="UTF-8">'+style+'</head><body><h2>'+m2esc(title)+'</h2>'+tables+'</body></html>';return new Blob(['\ufeff',content],{type:'application/vnd.ms-excel'});}
+function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+function dietTablesHTML(){const d=collectModule2();let o='<p><b>Alumno/a:</b> '+m2esc(d.student)+'</p>';d.days.forEach((x,i)=>{o+=`<h3>Día ${i+1} · ${m2esc(x.date)} · ${m2esc(x.weekday)}</h3><table><tr><th>Hora</th><th>Alimento/bebida/suplemento</th><th>Cantidad</th><th>Pesada/estimada</th><th>Preparación</th><th>Marca/ingredientes/añadidos/observaciones</th></tr>`;x.diet.filter(q=>Object.values(q).some(Boolean)).forEach(q=>o+=`<tr><td>${m2esc(q.time)}</td><td>${m2esc(q.food)}</td><td>${m2esc(q.amount)}</td><td>${m2esc(q.method)}</td><td>${m2esc(q.prep)}</td><td>${m2esc(q.notes)}</td></tr>`);o+='</table><h4>Actividad física y cotidiana</h4><table><tr><th>Hora</th><th>Actividad</th><th>Duración</th><th>Intensidad</th><th>Observaciones</th></tr>';x.activity.filter(q=>Object.values(q).some(Boolean)).forEach(q=>o+=`<tr><td>${m2esc(q.time)}</td><td>${m2esc(q.activity)}</td><td>${m2esc(q.duration)}</td><td>${m2esc(q.intensity)}</td><td>${m2esc(q.notes)}</td></tr>`);o+='</table><p><b>Comentarios:</b> '+m2esc(x.comments)+'</p>';});return o;}
+function cfcaTableHTML(){const d=collectModule2();let o='<table><tr><th>Alimento</th><th>Frecuencia</th></tr>';d.cfca.forEach(x=>o+=`<tr><td>${m2esc(x.item)}</td><td>${m2esc(x.frequency)}</td></tr>`);return o+'</table>';}
+function exportDietXLS(){downloadBlob(xlsBlob(dietTablesHTML(),'Registro dietético y de actividad · 3 días'),'registro_dietetico_3_dias.xls');}
+function exportCFCA_XLS(){downloadBlob(xlsBlob(cfcaTableHTML(),'Cuestionario de frecuencia de consumo alimentario'),'cuestionario_frecuencia_consumo.xls');}
+function exportAllXLS(){downloadBlob(xlsBlob(dietTablesHTML()+'<br><h2>CFCA</h2>'+cfcaTableHTML(),'Laboratorio de Nutrición Deportiva · Módulo 2'),'modulo_2_registro_dietetico.xls');}
+function printModule2(){saveModule2(false);window.print();}
+window.addEventListener('DOMContentLoaded',()=>{renderDietDays();restoreModule2();updateCFCAProgress();});
+</script>
+
 </body>
 </html>
