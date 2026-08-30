@@ -305,6 +305,83 @@ header.brand-header{
  .cfca-table th{position:static}
 }
 
+
+/* ===== Módulo 3 · Evaluación de la composición corporal ===== */
+.m3-only{display:none}
+.m3-hero{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;align-items:stretch;margin-bottom:14px}
+.m3-hero-card{border:1px solid #dce7ef;border-radius:14px;background:linear-gradient(135deg,#f7fbff,#f3fbf8);padding:16px}
+.m3-hero-card h2{margin:0 0 8px;color:var(--navy)}
+.m3-hero-mini{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.m3-mini{border:1px solid #dce6ef;background:#fff;border-radius:11px;padding:10px;text-align:center}
+.m3-mini strong{display:block;color:var(--navy);font-size:18px}
+.m3-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px}
+.m3-tab{border:1px solid #ccd9e8;background:#f8fbff;color:#2b425e;padding:9px 12px;border-radius:9px;font-weight:800;cursor:pointer}
+.m3-tab.active{background:#0b6177;color:#fff;border-color:#0b6177}
+.m3-panel{display:none}.m3-panel.active{display:block}
+.m3-form-grid{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:10px}
+.m3-table-wrap{overflow:auto;border:1px solid #dce4ed;border-radius:11px}
+.m3-measure-table{width:100%;min-width:820px;border-collapse:collapse}
+.m3-measure-table th,.m3-measure-table td{border-bottom:1px solid #e2e8ef;padding:7px 8px;vertical-align:middle}
+.m3-measure-table th{background:#e7f0f8;color:#173b63;font-size:12px;position:sticky;top:0;z-index:2}
+.m3-measure-table tr.group-row td{background:#f2f7fb;color:#0d4f67;font-weight:900;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+.m3-measure-table td:first-child{min-width:270px;font-weight:650}
+.m3-measure-table input{width:88px;box-sizing:border-box;padding:7px;border:1px solid #cbd6e2;border-radius:6px;text-align:right}
+.m3-mean{font-weight:900;color:#0b6177;white-space:nowrap}
+.m3-disp{font-size:11px;color:#64748b;white-space:nowrap}
+.m3-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.m3-kpi{position:relative;overflow:hidden;border:1px solid #dce5ee;background:#fff;border-radius:13px;padding:13px}
+.m3-kpi::after{content:"";position:absolute;width:65px;height:65px;border-radius:50%;right:-22px;top:-22px;background:rgba(20,154,160,.08)}
+.m3-kpi .lab{font-size:12px;color:#56697e;font-weight:750}.m3-kpi .val{font-size:24px;font-weight:900;color:#0f2d5c;margin-top:3px}.m3-kpi .unit{font-size:11px;color:#7a8b9d}
+.m3-dashboard{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.m3-viz{border:1px solid #dce5ee;border-radius:14px;background:#fff;padding:14px}
+.m3-viz h3{margin:0 0 8px;color:#173b63}
+.m3-composition{display:grid;grid-template-columns:190px 1fr;gap:16px;align-items:center}
+.m3-donut{width:170px;height:170px;border-radius:50%;position:relative;margin:auto;background:#eef3f7}
+.m3-donut::after{content:"";position:absolute;inset:30px;background:#fff;border-radius:50%;box-shadow:0 0 0 1px #e2e8ef}
+.m3-donut-center{position:absolute;z-index:2;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
+.m3-donut-center strong{font-size:25px;color:#0f2d5c}.m3-donut-center span{font-size:11px;color:#718096}
+.m3-comp-list{display:grid;gap:9px}
+.m3-comp-row{display:grid;grid-template-columns:110px 1fr 86px;gap:8px;align-items:center;font-size:12px}
+.m3-comp-bar{height:10px;border-radius:999px;background:#e9eef3;overflow:hidden}
+.m3-comp-fill{height:100%;border-radius:999px}
+.c-fat{background:#d7a21f}.c-muscle{background:#0d8e92}.c-bone{background:#6f78be}.c-residual{background:#bb6fa4}.c-ffm{background:#4c9b65}
+.m3-profile-bars{display:grid;gap:7px}
+.m3-bar-row{display:grid;grid-template-columns:120px 1fr 55px;gap:8px;align-items:center;font-size:11px}
+.m3-bar-bg{height:11px;background:#eef2f6;border-radius:999px;overflow:hidden}
+.m3-bar-fill{height:100%;background:linear-gradient(90deg,#29a3a5,#0f6080);border-radius:999px}
+.m3-somato-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.m3-somato{border-radius:12px;padding:13px;color:#fff;min-height:92px}
+.m3-somato.end{background:linear-gradient(135deg,#d9a329,#b87a17)}
+.m3-somato.mes{background:linear-gradient(135deg,#159597,#087176)}
+.m3-somato.ect{background:linear-gradient(135deg,#5377ba,#334f93)}
+.m3-somato .n{font-size:29px;font-weight:900}.m3-somato .t{font-size:12px;font-weight:850}.m3-somato .d{font-size:10.5px;opacity:.92;margin-top:5px}
+.m3-classification{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f3f8fc;border:1px solid #dce7ef;font-weight:800;color:#294966}
+.somato-wrap{position:relative;width:100%;min-height:360px}
+#somatoSVG{width:100%;height:360px;display:block;background:linear-gradient(180deg,#fbfdff,#f7fbfd);border-radius:12px}
+.m3-method-note{font-size:11.5px;color:#53677e;background:#f8fbfd;border:1px solid #dee8ef;border-radius:10px;padding:10px 12px;line-height:1.45}
+.m3-warning{font-size:12px;color:#77551e;background:#fff8e6;border:1px solid #ecd8a2;border-radius:10px;padding:10px 12px;margin-top:10px}
+.m3-good{font-size:12px;color:#275d3b;background:#eef8f1;border:1px solid #cce5d4;border-radius:10px;padding:10px 12px;margin-top:10px}
+.m3-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.m3-report-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.m3-chip{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#edf6fa;color:#0d6177;border:1px solid #cfe3ec;font-size:11px;font-weight:800}
+.m3-ref{border-left:4px solid #b8cee5;background:#fbfdff;border-radius:8px;padding:9px 11px;margin:7px 0;font-size:11.5px;line-height:1.45}
+.m3-help{font-size:11px;color:#60758b}
+@media(max-width:980px){
+ .m3-hero,.m3-dashboard{grid-template-columns:1fr}.m3-form-grid{grid-template-columns:repeat(2,1fr)}
+ .m3-kpis{grid-template-columns:repeat(2,1fr)}.m3-composition{grid-template-columns:1fr}
+}
+@media(max-width:620px){.m3-form-grid,.m3-kpis{grid-template-columns:1fr}.m3-somato-cards{grid-template-columns:1fr}}
+@media print{
+ body.m3-print #module1Content,body.m3-print #module2Content{display:none!important}
+ body.m3-print #module3Content{display:block!important}
+ body.m3-print .m3-input-only,body.m3-print .m3-tabs,body.m3-print .m3-actions,body.m3-print .sidebar,body.m3-print header,body.m3-print .edu-banner{display:none!important}
+ body.m3-print .m3-panel{display:block!important}
+ body.m3-print #m3-panel-input{display:none!important}
+ body.m3-print .m3-dashboard{grid-template-columns:1fr 1fr}
+ body.m3-print .card,body.m3-print .m3-viz{break-inside:avoid;box-shadow:none!important}
+ body.m3-print #somatoSVG{height:320px}
+}
+
 </style>
 </head>
 <body>
@@ -331,6 +408,7 @@ header.brand-header{
     <div class="module-switch">
       <button class="module-btn active" id="moduleBtn1" type="button" onclick="showModule(1)">⚡ Módulo 1 · Energía</button>
       <button class="module-btn" id="moduleBtn2" type="button" onclick="showModule(2)">📝 Módulo 2 · Registro dietético</button>
+      <button class="module-btn" id="moduleBtn3" type="button" onclick="showModule(3)">📐 Módulo 3 · Composición corporal</button>
     </div>
     <div id="m1Side">
       <div class="side-head">Módulo 1 · Energía</div>
@@ -347,9 +425,16 @@ header.brand-header{
       <a class="side-link" href="#m2-cfca"><span class="side-dot"></span>Frecuencia de consumo</a>
       <a class="side-link" href="#m2-export"><span class="side-dot"></span>Exportación</a>
     </div>
+
+    <div id="m3Side" class="m3-only">
+      <div class="side-head">Módulo 3 · Composición corporal</div>
+      <a class="side-link" href="#m3-input"><span class="side-dot"></span>Perfil restringido ISAK</a>
+      <a class="side-link" href="#m3-results"><span class="side-dot"></span>Composición corporal</a>
+      <a class="side-link" href="#m3-somatotype"><span class="side-dot"></span>Somatotipo y somatocarta</a>
+      <a class="side-link" href="#m3-references"><span class="side-dot"></span>Métodos y referencias</a>
+    </div>
     <div class="side-next">
       <h4>Próximos módulos</h4>
-      <div>Módulo 3 · Composición corporal</div>
       <div>Módulo 4 · Hidratación</div>
       <div>Módulo 5 · Hidratos de carbono</div>
       <div>Módulo 6 · Proteínas</div>
@@ -1506,11 +1591,148 @@ header.brand-header{
   </section>
 </div>
 
+
+<div id="module3Content" style="display:none">
+  <div class="edu-banner">
+    <div><strong>Módulo 3 · Evaluación de la composición corporal:</strong> registra tres tomas por variable, calcula automáticamente el promedio y genera un perfil antropométrico, composición corporal estimada y somatotipo Heath–Carter.</div>
+    <div><strong>Uso educativo:</strong> la antropometría es un método indirecto/doblemente indirecto; los resultados deben interpretarse como estimaciones.</div>
+  </div>
+
+  <div class="m3-hero">
+    <div class="m3-hero-card">
+      <span class="m3-chip">📐 Perfil restringido · 21 variables</span>
+      <h2>Evaluación antropométrica</h2>
+      <p>Introduce <strong>tres mediciones</strong> de cada variable. La app utilizará el <strong>promedio aritmético</strong> para todos los cálculos posteriores.</p>
+      <div class="m3-method-note">La estructura se basa en el perfil restringido trabajado en las plantillas facilitadas: 4 medidas básicas, 8 pliegues, 6 perímetros y 3 diámetros. Para los cálculos se integran además las ecuaciones utilizadas en las plantillas docentes y el método Heath–Carter.</div>
+    </div>
+    <div class="m3-hero-card">
+      <div class="m3-hero-mini">
+        <div class="m3-mini"><strong>3×</strong><span>mediciones por variable</span></div>
+        <div class="m3-mini"><strong>21</strong><span>variables antropométricas</span></div>
+        <div class="m3-mini"><strong>4</strong><span>componentes corporales</span></div>
+        <div class="m3-mini"><strong>3</strong><span>componentes somatotipo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="card m3-input-only" id="m3-input">
+    <div class="m3-report-title">
+      <div>
+        <h2 class="section-title"><span class="section-icon">📏</span>1. Perfil restringido · registro de mediciones</h2>
+        <p class="small">Los promedios solo se calculan cuando están registradas las tres tomas. La columna “Dispersión” muestra la amplitud entre el valor máximo y mínimo como porcentaje del promedio; es un apoyo visual y <strong>no equivale al ETM</strong>.</p>
+      </div>
+      <span class="m3-chip" id="m3Completeness">0 / 21 completas</span>
+    </div>
+
+    <div class="m3-form-grid">
+      <div><label for="m3Name">Nombre / código</label><input id="m3Name" type="text" placeholder="Alumno/a o código"></div>
+      <div><label for="m3Sport">Deporte / modalidad</label><input id="m3Sport" type="text" placeholder="Ej. atletismo"></div>
+      <div><label for="m3Sex">Sexo según las ecuaciones</label><select id="m3Sex"><option value="m">Hombre</option><option value="f">Mujer</option></select></div>
+      <div><label for="m3Age">Edad (años)</label><input id="m3Age" type="number" min="16" max="90" step="1" placeholder="Ej. 21"></div>
+      <div><label for="m3Race">Coeficiente poblacional · Lee</label>
+        <select id="m3Race">
+          <option value="0">Blanco / hispano (0)</option>
+          <option value="-2">Asiático (-2,0)</option>
+          <option value="1.1">Afroamericano (1,1)</option>
+        </select>
+      </div>
+      <div><label for="m3Date">Fecha de evaluación</label><input id="m3Date" type="date"></div>
+    </div>
+
+    <div class="m3-table-wrap" style="margin-top:14px">
+      <table class="m3-measure-table">
+        <thead><tr><th>Variable</th><th>Unidad</th><th>Toma 1</th><th>Toma 2</th><th>Toma 3</th><th>Promedio</th><th>Dispersión</th></tr></thead>
+        <tbody id="m3MeasureBody"></tbody>
+      </table>
+    </div>
+    <div class="m3-actions">
+      <button type="button" class="primary" onclick="m3Calculate()">Calcular informe</button>
+      <button type="button" class="secondary" onclick="m3Save(true)">Guardar en este navegador</button>
+      <button type="button" class="secondary" onclick="m3LoadExample()">Cargar ejemplo docente</button>
+      <button type="button" class="danger" onclick="m3Clear()">Limpiar módulo 3</button>
+    </div>
+  </section>
+
+  <section class="card" id="m3-results" style="margin-top:18px">
+    <div class="m3-report-title">
+      <div>
+        <h2 class="section-title"><span class="section-icon">📊</span>2. Informe antropométrico</h2>
+        <div id="m3SubjectLine" class="small">Completa las mediciones para generar el informe.</div>
+      </div>
+      <div class="m3-actions">
+        <button type="button" class="btn-green" onclick="m3ExportXLS()">Excel · datos e informe</button>
+        <button type="button" class="btn-orange" onclick="m3Print()">PDF · informe visual</button>
+      </div>
+    </div>
+
+    <div class="m3-kpis">
+      <div class="m3-kpi"><div class="lab">IMC</div><div class="val" id="m3BMI">—</div><div class="unit">kg/m² · descriptor antropométrico</div></div>
+      <div class="m3-kpi"><div class="lab">Σ 6 pliegues</div><div class="val" id="m3Sum6">—</div><div class="unit">mm</div></div>
+      <div class="m3-kpi"><div class="lab">Masa grasa estimada</div><div class="val" id="m3FatPct">—</div><div class="unit">% · Durnin–Womersley + Siri</div></div>
+      <div class="m3-kpi"><div class="lab">Masa libre de grasa</div><div class="val" id="m3FFM">—</div><div class="unit">kg</div></div>
+    </div>
+
+    <div class="m3-dashboard">
+      <div class="m3-viz">
+        <h3>Perfil de pliegues cutáneos</h3>
+        <p class="small">Promedio de las tres mediciones de cada pliegue.</p>
+        <div id="m3SkinfoldBars" class="m3-profile-bars"></div>
+        <div class="m3-method-note" style="margin-top:10px"><strong>Sumatorios:</strong> Σ4 Durnin = <span id="m3Sum4">—</span> mm · Σ7 = <span id="m3Sum7">—</span> mm · Σ8 = <span id="m3Sum8">—</span> mm.</div>
+      </div>
+
+      <div class="m3-viz">
+        <h3>Composición corporal estimada</h3>
+        <div class="m3-composition">
+          <div class="m3-donut" id="m3Donut"><div class="m3-donut-center"><div><strong id="m3WeightCenter">—</strong><br><span>peso corporal</span></div></div></div>
+          <div class="m3-comp-list" id="m3CompList"></div>
+        </div>
+        <div class="m3-warning" id="m3CompositionNote">Se mostrarán los componentes cuando existan todos los datos necesarios.</div>
+      </div>
+
+      <div class="m3-viz">
+        <h3>Índices y proporcionalidad básica</h3>
+        <div class="m3-kpis" style="grid-template-columns:repeat(2,1fr)">
+          <div class="m3-kpi"><div class="lab">Cintura / cadera</div><div class="val" id="m3WHR">—</div><div class="unit">razón</div></div>
+          <div class="m3-kpi"><div class="lab">Envergadura / estatura</div><div class="val" id="m3SpanRatio">—</div><div class="unit">ratio</div></div>
+          <div class="m3-kpi"><div class="lab">Índice córmico</div><div class="val" id="m3Cormic">—</div><div class="unit">%</div></div>
+          <div class="m3-kpi"><div class="lab">Músculo / hueso</div><div class="val" id="m3MuscleBone">—</div><div class="unit">ratio estimado</div></div>
+        </div>
+      </div>
+
+      <div class="m3-viz" id="m3-somatotype">
+        <h3>Somatotipo Heath–Carter</h3>
+        <div class="m3-somato-cards">
+          <div class="m3-somato end"><div class="t">Endomorfia</div><div class="n" id="m3Endo">—</div><div class="d">Adiposidad relativa</div></div>
+          <div class="m3-somato mes"><div class="t">Mesomorfia</div><div class="n" id="m3Meso">—</div><div class="d">Robustez músculo-esquelética relativa</div></div>
+          <div class="m3-somato ect"><div class="t">Ectomorfia</div><div class="n" id="m3Ecto">—</div><div class="d">Linealidad relativa</div></div>
+        </div>
+        <div class="m3-classification" id="m3SomatoClass">Clasificación: —</div>
+      </div>
+
+      <div class="m3-viz" style="grid-column:1/-1">
+        <div class="m3-report-title"><div><h3>Somatocarta</h3><p class="small">Coordenadas: X = ectomorfia − endomorfia · Y = 2×mesomorfia − (endomorfia + ectomorfia).</p></div><span class="m3-chip" id="m3XY">X — · Y —</span></div>
+        <div class="somato-wrap"><svg id="somatoSVG" viewBox="0 0 760 360" role="img" aria-label="Somatocarta"></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="m3-references" style="margin-top:18px">
+    <h2 class="section-title"><span class="section-icon">📚</span>3. Métodos, alcance y referencias</h2>
+    <div class="m3-method-note"><strong>Importante:</strong> el bloque de “composición corporal” reproduce la lógica de las plantillas antropométricas aportadas: masa grasa mediante Durnin–Womersley + Siri, masa muscular esquelética mediante Lee et al., masa ósea mediante Rocha y masa residual calculada por diferencia. Estas estimaciones proceden de ecuaciones distintas y <strong>no constituyen una medición directa ni un modelo multicompartimental de referencia</strong>.</div>
+    <div class="m3-ref"><strong>Perfil restringido ISAK.</strong> ISAK define el Nivel 1 como perfil restringido e incluye 4 medidas básicas, 8 pliegues cutáneos, 6 perímetros y 3 diámetros. La nomenclatura y estructura de este módulo se han adaptado a las plantillas docentes facilitadas.</div>
+    <div class="m3-ref"><strong>Durnin, J. V. G. A., &amp; Womersley, J. (1974).</strong> Body fat assessed from total body density and its estimation from skinfold thickness: Measurements on 481 men and women aged from 16 to 72 years. <em>British Journal of Nutrition, 32</em>(1), 77–97. https://doi.org/10.1079/BJN19740060</div>
+    <div class="m3-ref"><strong>Lee, R. C., Wang, Z., Heo, M., Ross, R., Janssen, I., &amp; Heymsfield, S. B. (2000).</strong> Total-body skeletal muscle mass: Development and cross-validation of anthropometric prediction models. <em>The American Journal of Clinical Nutrition, 72</em>(3), 796–803. https://doi.org/10.1093/ajcn/72.3.796</div>
+    <div class="m3-ref"><strong>Carter, J. E. L. (2002).</strong> <em>The Heath-Carter anthropometric somatotype: Instruction manual</em>. San Diego State University.</div>
+    <div class="m3-ref"><strong>Sillero Quintana, M. (2005).</strong> <em>Teoría de Kinantropometría</em> y <em>Guión de prácticas de Kinantropometría</em>. Facultad de Ciencias de la Actividad Física y del Deporte (INEF), Universidad Politécnica de Madrid.</div>
+    <div class="m3-ref"><strong>Rocha (1974).</strong> Ecuación de masa ósea reproducida según las plantillas docentes aportadas: 3,02 × (talla² × diámetro biestiloideo × diámetro femoral × 400)<sup>0,712</sup>. La referencia bibliográfica completa no figura en los documentos facilitados.</div>
+  </section>
+</div>
+
 </main></div>
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 10.1 · Módulos 1–2 · Uso docente</span>
+  <span>Versión 11.0 · Módulos 1–3 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -1870,11 +2092,13 @@ let currentDay=1;
 const dietRowsDefault=12, activityRowsDefault=5;
 function m2esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function showModule(n){
- const m1=document.getElementById('module1Content'),m2=document.getElementById('module2Content');
- m1.style.display=n===1?'block':'none';m2.style.display=n===2?'block':'none';
- document.getElementById('m1Side').style.display=n===1?'block':'none';document.getElementById('m2Side').style.display=n===2?'block':'none';
- document.getElementById('moduleBtn1').classList.toggle('active',n===1);document.getElementById('moduleBtn2').classList.toggle('active',n===2);
- if(n===2){renderDietDays();restoreModule2();updateCFCAProgress();window.scrollTo({top:0,behavior:'smooth'});}
+ const m1=document.getElementById('module1Content'),m2=document.getElementById('module2Content'),m3=document.getElementById('module3Content');
+ m1.style.display=n===1?'block':'none';m2.style.display=n===2?'block':'none';m3.style.display=n===3?'block':'none';
+ document.getElementById('m1Side').style.display=n===1?'block':'none';document.getElementById('m2Side').style.display=n===2?'block':'none';document.getElementById('m3Side').style.display=n===3?'block':'none';
+ document.getElementById('moduleBtn1').classList.toggle('active',n===1);document.getElementById('moduleBtn2').classList.toggle('active',n===2);document.getElementById('moduleBtn3').classList.toggle('active',n===3);
+ if(n===2){renderDietDays();restoreModule2();updateCFCAProgress();}
+ if(n===3){m3RenderRows();m3Restore();m3UpdateMeans();m3RenderSomato({sx:NaN,sy:NaN});}
+ window.scrollTo({top:0,behavior:'smooth'});
 }
 function dietRowHTML(day,idx,data={}){
  return `<tr><td><input class="d-time" type="time" value="${m2esc(data.time||'')}"></td>
@@ -1921,8 +2145,192 @@ function exportDietXLS(){downloadBlob(xlsBlob(dietTablesHTML(),'Registro dietét
 function exportCFCA_XLS(){downloadBlob(xlsBlob(cfcaTableHTML(),'Cuestionario de frecuencia de consumo alimentario'),'cuestionario_frecuencia_consumo.xls');}
 function exportAllXLS(){downloadBlob(xlsBlob(dietTablesHTML()+'<br><h2>CFCA</h2>'+cfcaTableHTML(),'Laboratorio de Nutrición Deportiva · Módulo 2'),'modulo_2_registro_dietetico.xls');}
 function printModule2(){saveModule2(false);window.print();}
-window.addEventListener('DOMContentLoaded',()=>{renderDietDays();restoreModule2();updateCFCAProgress();});
+window.addEventListener('DOMContentLoaded',()=>{renderDietDays();restoreModule2();updateCFCAProgress();m3RenderRows();m3Restore();m3UpdateMeans();m3RenderSomato({sx:NaN,sy:NaN});});
 </script>
 
+
+<script>
+const m3Measures=[
+ {group:'Medidas básicas',key:'weight',label:'Peso corporal',unit:'kg'},
+ {group:'Medidas básicas',key:'height',label:'Estatura',unit:'cm'},
+ {group:'Medidas básicas',key:'sittingHeight',label:'Talla sentado',unit:'cm'},
+ {group:'Medidas básicas',key:'armSpan',label:'Envergadura',unit:'cm'},
+ {group:'Pliegues cutáneos',key:'subscapular',label:'Subescapular',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'triceps',label:'Tricipital',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'biceps',label:'Bicipital',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'iliac',label:'Ileocrestal',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'supraspinale',label:'Supraespinal',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'abdominal',label:'Abdominal',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'thighSF',label:'Muslo anterior',unit:'mm'},
+ {group:'Pliegues cutáneos',key:'calfSF',label:'Pierna medial',unit:'mm'},
+ {group:'Perímetros',key:'armRelaxed',label:'Brazo relajado',unit:'cm'},
+ {group:'Perímetros',key:'armFlexed',label:'Brazo contraído',unit:'cm'},
+ {group:'Perímetros',key:'thighGirth',label:'Muslo',unit:'cm'},
+ {group:'Perímetros',key:'calfGirth',label:'Pierna',unit:'cm'},
+ {group:'Perímetros',key:'waist',label:'Cintura',unit:'cm'},
+ {group:'Perímetros',key:'hip',label:'Cadera / glúteo',unit:'cm'},
+ {group:'Diámetros',key:'humerus',label:'Biepicondíleo del húmero',unit:'cm'},
+ {group:'Diámetros',key:'wrist',label:'Biestiloideo de muñeca',unit:'cm'},
+ {group:'Diámetros',key:'femur',label:'Bicondíleo del fémur',unit:'cm'}
+];
+function m3Num(v){const n=parseFloat(v);return Number.isFinite(n)&&n>0?n:NaN}
+function m3Fmt(v,d=1){return Number.isFinite(v)?v.toFixed(d).replace('.',','):'—'}
+function m3Average(vals){const a=vals.map(m3Num);return a.every(Number.isFinite)?a.reduce((s,x)=>s+x,0)/3:NaN}
+function m3RenderRows(){
+ const body=document.getElementById('m3MeasureBody'); if(!body||body.dataset.ready)return;
+ let out='',last='';
+ m3Measures.forEach(m=>{
+  if(m.group!==last){out+=`<tr class="group-row"><td colspan="7">${m.group}</td></tr>`;last=m.group}
+  out+=`<tr data-m3key="${m.key}">
+   <td>${m.label}</td><td>${m.unit}</td>
+   <td><input type="number" min="0" step="0.01" class="m3v m3v1"></td>
+   <td><input type="number" min="0" step="0.01" class="m3v m3v2"></td>
+   <td><input type="number" min="0" step="0.01" class="m3v m3v3"></td>
+   <td class="m3-mean">—</td><td class="m3-disp">—</td></tr>`;
+ });
+ body.innerHTML=out;body.dataset.ready='1';
+ body.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{m3UpdateMeans();m3Save(false)}));
+}
+function m3Data(){
+ const values={};
+ document.querySelectorAll('#m3MeasureBody tr[data-m3key]').forEach(r=>{
+  const a=[...r.querySelectorAll('input')].map(x=>x.value);
+  values[r.dataset.m3key]={raw:a,mean:m3Average(a)};
+ });
+ return {name:document.getElementById('m3Name').value,sport:document.getElementById('m3Sport').value,sex:document.getElementById('m3Sex').value,age:parseFloat(document.getElementById('m3Age').value),race:parseFloat(document.getElementById('m3Race').value),date:document.getElementById('m3Date').value,values};
+}
+function m3UpdateMeans(){
+ let complete=0;
+ document.querySelectorAll('#m3MeasureBody tr[data-m3key]').forEach(r=>{
+  const nums=[...r.querySelectorAll('input')].map(x=>m3Num(x.value)),avg=nums.every(Number.isFinite)?nums.reduce((a,b)=>a+b,0)/3:NaN;
+  r.querySelector('.m3-mean').textContent=Number.isFinite(avg)?m3Fmt(avg,2):'—';
+  if(Number.isFinite(avg)){complete++;const spread=(Math.max(...nums)-Math.min(...nums))/avg*100;r.querySelector('.m3-disp').textContent=m3Fmt(spread,1)+' %';}
+  else r.querySelector('.m3-disp').textContent='—';
+ });
+ const c=document.getElementById('m3Completeness');if(c)c.textContent=`${complete} / ${m3Measures.length} completas`;
+}
+function m3Save(show=false){
+ if(!document.getElementById('m3MeasureBody')?.dataset.ready)return;
+ localStorage.setItem('laboratorioNutricionModulo3',JSON.stringify(m3Data()));
+ if(show)alert('Datos del Módulo 3 guardados en este navegador.');
+}
+function m3Restore(){
+ const raw=localStorage.getItem('laboratorioNutricionModulo3');if(!raw)return;
+ try{const d=JSON.parse(raw);
+  ['Name','Sport','Age','Date'].forEach(k=>{const e=document.getElementById('m3'+k);if(e)e.value=d[k.toLowerCase()]??''});
+  if(d.sex)document.getElementById('m3Sex').value=d.sex;if(Number.isFinite(d.race))document.getElementById('m3Race').value=String(d.race);
+  m3Measures.forEach(m=>{const r=document.querySelector(`[data-m3key="${m.key}"]`),x=d.values?.[m.key]?.raw||[];if(r)[...r.querySelectorAll('input')].forEach((el,i)=>el.value=x[i]??'')});
+  m3UpdateMeans();m3Calculate(false);
+ }catch(e){}
+}
+function m3Clear(){if(!confirm('¿Eliminar todos los datos del Módulo 3 guardados en este navegador?'))return;localStorage.removeItem('laboratorioNutricionModulo3');document.querySelectorAll('#module3Content input').forEach(x=>x.value='');document.getElementById('m3Sex').value='m';document.getElementById('m3Race').value='0';m3UpdateMeans();m3ResetResults();}
+function m3LoadExample(){
+ const example={weight:[72.1,72.0,72.2],height:[178.2,178.1,178.2],sittingHeight:[92.5,92.4,92.6],armSpan:[181.0,180.8,180.9],
+ subscapular:[11.2,11.0,11.1],triceps:[9.8,10.0,9.9],biceps:[5.2,5.1,5.2],iliac:[12.4,12.2,12.3],supraspinale:[9.5,9.4,9.6],abdominal:[14.2,14.0,14.1],thighSF:[13.8,13.6,13.7],calfSF:[8.5,8.4,8.6],
+ armRelaxed:[30.8,30.9,30.8],armFlexed:[33.4,33.5,33.4],thighGirth:[55.4,55.5,55.3],calfGirth:[36.7,36.8,36.7],waist:[78.5,78.4,78.6],hip:[96.0,95.9,96.1],
+ humerus:[6.8,6.8,6.9],wrist:[5.7,5.7,5.8],femur:[9.5,9.5,9.6]};
+ document.getElementById('m3Name').value='Ejemplo docente';document.getElementById('m3Sport').value='Deporte de equipo';document.getElementById('m3Sex').value='m';document.getElementById('m3Age').value='22';document.getElementById('m3Race').value='0';
+ Object.entries(example).forEach(([k,v])=>{const r=document.querySelector(`[data-m3key="${k}"]`);if(r)[...r.querySelectorAll('input')].forEach((e,i)=>e.value=v[i])});
+ m3UpdateMeans();m3Calculate();m3Save(false);
+}
+function m3DW(sex,age,sum4){
+ if(!Number.isFinite(age)||!Number.isFinite(sum4)||sum4<=0)return NaN;
+ const L=Math.log10(sum4);let a,b;
+ if(sex==='m'){
+  if(age<17){a=1.1533;b=.0643}else if(age<=19){a=1.1620;b=.0630}else if(age<=29){a=1.1631;b=.0632}else if(age<=39){a=1.1422;b=.0544}else if(age<=49){a=1.1620;b=.0700}else{a=1.1715;b=.0779}
+ }else{
+  if(age<17){a=1.1369;b=.0598}else if(age<=19){a=1.1549;b=.0678}else if(age<=29){a=1.1599;b=.0717}else if(age<=39){a=1.1423;b=.0632}else if(age<=49){a=1.1333;b=.0612}else{a=1.1339;b=.0645}
+ }
+ return a-b*L;
+}
+function m3SomatoClass(e,m,x){
+ if(![e,m,x].every(Number.isFinite))return '—';
+ const max=Math.max(e,m,x),min=Math.min(e,m,x);
+ if(max-min<=1.0)return 'Central';
+ if(m===max && Math.abs(e-x)<=.5)return 'Mesomorfo balanceado';
+ if(e===max && Math.abs(m-x)<=.5)return 'Endomorfo balanceado';
+ if(x===max && Math.abs(m-e)<=.5)return 'Ectomorfo balanceado';
+ if(Math.abs(e-m)<=.5 && x<Math.min(e,m))return 'Mesomorfo–Endomorfo';
+ if(Math.abs(x-m)<=.5 && e<Math.min(x,m))return 'Mesomorfo–Ectomorfo';
+ if(Math.abs(e-x)<=.5 && m<Math.min(e,x))return 'Endomorfo–Ectomorfo';
+ if(e===max)return x>m?'Ecto-Endomorfo':'Meso-Endomorfo';
+ if(m===max)return e>x?'Endo-Mesomorfo':'Ecto-Mesomorfo';
+ return e>m?'Endo-Ectomorfo':'Meso-Ectomorfo';
+}
+function m3Calculations(){
+ const d=m3Data(),v={};Object.entries(d.values).forEach(([k,x])=>v[k]=x.mean);
+ const weight=v.weight,height=v.height,heightM=height/100,age=d.age,sex=d.sex,race=Number.isFinite(d.race)?d.race:0;
+ const bmi=weight/(heightM*heightM),sum4=v.subscapular+v.triceps+v.biceps+v.iliac;
+ const sum6=v.subscapular+v.triceps+v.supraspinale+v.abdominal+v.thighSF+v.calfSF;
+ const sum7=sum6+v.biceps,sum8=sum7+v.iliac;
+ const density=m3DW(sex,age,sum4),fatPct=Number.isFinite(density)?495/density-450:NaN,fatKg=weight*fatPct/100;
+ const cArm=v.armRelaxed-Math.PI*(v.triceps/10),cThigh=v.thighGirth-Math.PI*(v.thighSF/10),cCalf=v.calfGirth-Math.PI*(v.calfSF/10);
+ const sexCode=sex==='m'?1:0;
+ const muscleKg=heightM*(.00744*cArm*cArm+.00088*cThigh*cThigh+.00441*cCalf*cCalf)+2.4*sexCode-.048*age+race+7.8;
+ const boneKg=3.02*Math.pow((heightM*heightM)*(v.wrist/100)*(v.femur/100)*400,.712);
+ const residualKg=weight-fatKg-muscleKg-boneKg,ffmKg=weight-fatKg;
+ const musclePct=muscleKg/weight*100,bonePct=boneKg/weight*100,residualPct=residualKg/weight*100;
+ const whr=v.waist/v.hip,spanRatio=v.armSpan/height,cormic=v.sittingHeight/height*100,muscleBone=muscleKg/boneKg;
+ const Xendo=(v.triceps+v.subscapular+v.supraspinale)*(170.18/height);
+ let endo=-.7182+.1451*Xendo-.00068*Xendo*Xendo+.0000014*Xendo*Xendo*Xendo;endo=Math.max(.1,endo);
+ const corrFlex=v.armFlexed-(v.triceps/10),corrCalfSom=v.calfGirth-(v.calfSF/10);
+ let meso=.858*v.humerus+.601*v.femur+.188*corrFlex+.161*corrCalfSom-.131*height+4.5;meso=Math.max(.1,meso);
+ const hwr=height/Math.cbrt(weight);let ecto=hwr>=40.75?.732*hwr-28.58:(hwr>38.25?.463*hwr-17.63:.1);ecto=Math.max(.1,ecto);
+ const sx=ecto-endo,sy=2*meso-(endo+ecto);
+ return {d,v,weight,height,bmi,sum4,sum6,sum7,sum8,density,fatPct,fatKg,ffmKg,muscleKg,musclePct,boneKg,bonePct,residualKg,residualPct,whr,spanRatio,cormic,muscleBone,endo,meso,ecto,sx,sy,hwr,cArm,cThigh,cCalf};
+}
+function m3Calculate(scroll=true){
+ m3UpdateMeans();const c=m3Calculations(),needed=['weight','height','subscapular','triceps','biceps','iliac','supraspinale','abdominal','thighSF','calfSF','armRelaxed','armFlexed','thighGirth','calfGirth','waist','hip','humerus','wrist','femur'];
+ const missing=needed.filter(k=>!Number.isFinite(c.v[k]))||[];
+ document.getElementById('m3SubjectLine').textContent=[c.d.name,c.d.sport,c.d.age?`${c.d.age} años`:'',c.d.date].filter(Boolean).join(' · ')||'Informe antropométrico';
+ document.getElementById('m3BMI').textContent=m3Fmt(c.bmi,1);document.getElementById('m3Sum6').textContent=m3Fmt(c.sum6,1);document.getElementById('m3FatPct').textContent=m3Fmt(c.fatPct,1)+' %';document.getElementById('m3FFM').textContent=m3Fmt(c.ffmKg,1);
+ document.getElementById('m3Sum4').textContent=m3Fmt(c.sum4,1);document.getElementById('m3Sum7').textContent=m3Fmt(c.sum7,1);document.getElementById('m3Sum8').textContent=m3Fmt(c.sum8,1);
+ document.getElementById('m3WHR').textContent=m3Fmt(c.whr,2);document.getElementById('m3SpanRatio').textContent=m3Fmt(c.spanRatio,2);document.getElementById('m3Cormic').textContent=m3Fmt(c.cormic,1);document.getElementById('m3MuscleBone').textContent=m3Fmt(c.muscleBone,2);
+ document.getElementById('m3Endo').textContent=m3Fmt(c.endo,1);document.getElementById('m3Meso').textContent=m3Fmt(c.meso,1);document.getElementById('m3Ecto').textContent=m3Fmt(c.ecto,1);
+ document.getElementById('m3SomatoClass').textContent='Clasificación: '+(missing.length?'—':m3SomatoClass(c.endo,c.meso,c.ecto));
+ document.getElementById('m3XY').textContent=`X ${m3Fmt(c.sx,2)} · Y ${m3Fmt(c.sy,2)}`;document.getElementById('m3WeightCenter').textContent=Number.isFinite(c.weight)?m3Fmt(c.weight,1)+' kg':'—';
+ m3RenderSkinfolds(c);m3RenderComposition(c);m3RenderSomato(c);
+ m3Save(false);if(scroll)document.getElementById('m3-results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function m3RenderSkinfolds(c){
+ const keys=[['Subescapular','subscapular'],['Tríceps','triceps'],['Bíceps','biceps'],['Ileocrestal','iliac'],['Supraespinal','supraspinale'],['Abdominal','abdominal'],['Muslo','thighSF'],['Pierna','calfSF']];
+ const vals=keys.map(x=>c.v[x[1]]).filter(Number.isFinite),mx=Math.max(1,...vals);
+ document.getElementById('m3SkinfoldBars').innerHTML=keys.map(([lab,k])=>{const v=c.v[k],w=Number.isFinite(v)?Math.max(2,v/mx*100):0;return `<div class="m3-bar-row"><span>${lab}</span><div class="m3-bar-bg"><div class="m3-bar-fill" style="width:${w}%"></div></div><strong>${m3Fmt(v,1)}</strong></div>`}).join('');
+}
+function m3RenderComposition(c){
+ const parts=[['Masa grasa',c.fatKg,c.fatPct,'c-fat'],['Masa muscular',c.muscleKg,c.musclePct,'c-muscle'],['Masa ósea',c.boneKg,c.bonePct,'c-bone'],['Masa residual',c.residualKg,c.residualPct,'c-residual']];
+ const valid=parts.every(x=>Number.isFinite(x[2]))&&Number.isFinite(c.weight);
+ let start=0,colors={'c-fat':'#d7a21f','c-muscle':'#0d8e92','c-bone':'#6f78be','c-residual':'#bb6fa4'},grad=[];
+ if(valid)parts.forEach(p=>{const pct=Math.max(0,p[2]);grad.push(`${colors[p[3]]} ${start}% ${start+pct}%`);start+=pct});
+ document.getElementById('m3Donut').style.background=valid?`conic-gradient(${grad.join(',')})`:'#eef3f7';
+ document.getElementById('m3CompList').innerHTML=parts.map(p=>`<div class="m3-comp-row"><span>${p[0]}</span><div class="m3-comp-bar"><div class="m3-comp-fill ${p[3]}" style="width:${Number.isFinite(p[2])?Math.max(0,Math.min(100,p[2])):0}%"></div></div><strong>${m3Fmt(p[1],1)} kg<br>${m3Fmt(p[2],1)} %</strong></div>`).join('');
+ const note=document.getElementById('m3CompositionNote');
+ if(valid&&c.residualKg>=0){note.className='m3-good';note.innerHTML=`<strong>Masa libre de grasa:</strong> ${m3Fmt(c.ffmKg,1)} kg (${m3Fmt(100-c.fatPct,1)} %). Composición estimada mediante ecuaciones antropométricas; no representa una medición directa de tejidos.`}
+ else if(valid){note.className='m3-warning';note.textContent='La combinación de ecuaciones produce una masa residual negativa. Revisa las mediciones y recuerda que las ecuaciones proceden de modelos distintos.'}
+ else{note.className='m3-warning';note.textContent='Se mostrarán los componentes cuando existan todos los datos necesarios.'}
+}
+function m3RenderSomato(c){
+ const svg=document.getElementById('somatoSVG'),W=760,H=360,pad=45,xmin=-10,xmax=10,ymin=-8,ymax=16;
+ const X=x=>pad+(x-xmin)/(xmax-xmin)*(W-2*pad),Y=y=>H-pad-(y-ymin)/(ymax-ymin)*(H-2*pad);
+ let s='<defs><filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity=".18"/></filter></defs>';
+ for(let x=-10;x<=10;x+=2)s+=`<line x1="${X(x)}" y1="${Y(ymin)}" x2="${X(x)}" y2="${Y(ymax)}" stroke="${x===0?'#8aa0b5':'#e5ebf1'}" stroke-width="${x===0?1.5:1}"/><text x="${X(x)}" y="${H-18}" text-anchor="middle" font-size="9" fill="#708096">${x}</text>`;
+ for(let y=-8;y<=16;y+=2)s+=`<line x1="${X(xmin)}" y1="${Y(y)}" x2="${X(xmax)}" y2="${Y(y)}" stroke="${y===0?'#8aa0b5':'#e5ebf1'}" stroke-width="${y===0?1.5:1}"/><text x="25" y="${Y(y)+3}" text-anchor="middle" font-size="9" fill="#708096">${y}</text>`;
+ s+=`<text x="${X(-8)}" y="28" font-size="13" font-weight="800" fill="#b27917">ENDOMORFIA</text><text x="${X(0)}" y="22" text-anchor="middle" font-size="13" font-weight="800" fill="#087176">MESOMORFIA</text><text x="${X(8)}" y="28" text-anchor="end" font-size="13" font-weight="800" fill="#334f93">ECTOMORFIA</text>`;
+ if(Number.isFinite(c.sx)&&Number.isFinite(c.sy)){const px=X(Math.max(xmin,Math.min(xmax,c.sx))),py=Y(Math.max(ymin,Math.min(ymax,c.sy)));s+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${px}" y2="${py}" stroke="#0f6178" stroke-dasharray="4 4" stroke-width="1.5"/><circle cx="${px}" cy="${py}" r="9" fill="#0f6178" stroke="#fff" stroke-width="3" filter="url(#shadow)"/><circle cx="${px}" cy="${py}" r="3" fill="#fff"/>`;}
+ svg.innerHTML=s;
+}
+function m3ResetResults(){['m3BMI','m3Sum6','m3FatPct','m3FFM','m3WHR','m3SpanRatio','m3Cormic','m3MuscleBone','m3Endo','m3Meso','m3Ecto'].forEach(id=>document.getElementById(id).textContent='—');m3RenderSomato({sx:NaN,sy:NaN});}
+function m3ExportXLS(){
+ const c=m3Calculations(),d=c.d;let t=`<h2>Laboratorio de Nutrición Deportiva · Módulo 3</h2><p><b>Nombre/código:</b> ${m2esc(d.name)} · <b>Deporte:</b> ${m2esc(d.sport)} · <b>Edad:</b> ${m2esc(d.age||'')} · <b>Fecha:</b> ${m2esc(d.date)}</p>`;
+ t+='<h3>Perfil restringido</h3><table><tr><th>Grupo</th><th>Variable</th><th>Unidad</th><th>Toma 1</th><th>Toma 2</th><th>Toma 3</th><th>Promedio</th></tr>';
+ m3Measures.forEach(m=>{const x=d.values[m.key];t+=`<tr><td>${m.group}</td><td>${m.label}</td><td>${m.unit}</td><td>${m2esc(x.raw[0])}</td><td>${m2esc(x.raw[1])}</td><td>${m2esc(x.raw[2])}</td><td>${m3Fmt(x.mean,2)}</td></tr>`});t+='</table>';
+ t+=`<h3>Resultados</h3><table><tr><th>Resultado</th><th>Valor</th></tr>
+ <tr><td>IMC</td><td>${m3Fmt(c.bmi,2)}</td></tr><tr><td>Σ4 pliegues</td><td>${m3Fmt(c.sum4,2)} mm</td></tr><tr><td>Σ6 pliegues</td><td>${m3Fmt(c.sum6,2)} mm</td></tr><tr><td>Σ8 pliegues</td><td>${m3Fmt(c.sum8,2)} mm</td></tr>
+ <tr><td>Masa grasa</td><td>${m3Fmt(c.fatKg,2)} kg · ${m3Fmt(c.fatPct,2)} %</td></tr><tr><td>Masa muscular</td><td>${m3Fmt(c.muscleKg,2)} kg · ${m3Fmt(c.musclePct,2)} %</td></tr><tr><td>Masa ósea</td><td>${m3Fmt(c.boneKg,2)} kg · ${m3Fmt(c.bonePct,2)} %</td></tr><tr><td>Masa residual</td><td>${m3Fmt(c.residualKg,2)} kg · ${m3Fmt(c.residualPct,2)} %</td></tr>
+ <tr><td>Somatotipo</td><td>${m3Fmt(c.endo,2)} - ${m3Fmt(c.meso,2)} - ${m3Fmt(c.ecto,2)} · ${m3SomatoClass(c.endo,c.meso,c.ecto)}</td></tr><tr><td>Somatocarta</td><td>X ${m3Fmt(c.sx,2)} · Y ${m3Fmt(c.sy,2)}</td></tr></table>`;
+ downloadBlob(xlsBlob(t,'Evaluación antropométrica'),'modulo_3_composicion_corporal.xls');
+}
+function m3Print(){m3Calculate(false);document.body.classList.add('m3-print');setTimeout(()=>{window.print();setTimeout(()=>document.body.classList.remove('m3-print'),500)},100);}
+</script>
 </body>
 </html>
