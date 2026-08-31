@@ -1778,7 +1778,7 @@ header.brand-header{
 
         <div id="m3CompositionRefs" class="m3-composition-refs" hidden>
           <div class="m3-method-note" style="margin-top:12px">
-            <strong>Referencias orientativas en deportistas de élite.</strong> Los datos siguientes proceden de una <em>scoping review</em> reciente y muestran valores medios publicados para muestras concretas. Los métodos varían entre estudios (DXA, antropometría, BIA, etc.), por lo que <strong>no deben interpretarse como rangos ideales</strong> ni compararse directamente con masa muscular, ósea o residual estimadas por ecuaciones distintas. La comparación más compatible es con el <strong>% de masa grasa</strong> y, de forma complementaria, con FMI/FFMI.
+            <strong>Tablas 3 y 4 · composición corporal en deportistas de élite.</strong> Se muestran todos los registros de las Tablas 3 (hombres; 43 registros) y 4 (mujeres; 18 registros) de la <em>scoping review</em> de Martinez-Mireles et al. (2026). Los métodos varían entre estudios (DXA, antropometría, BIA, etc.), por lo que <strong>no deben interpretarse como rangos ideales</strong> ni compararse directamente con masa muscular, ósea o residual estimadas por ecuaciones distintas. La comparación más compatible es con el <strong>% de masa grasa</strong> y, de forma complementaria, con FMI/FFMI.
           </div>
           <div class="m3-ref-sport-tabs">
             <button type="button" class="m3-ref-sex active" data-sex="m" onclick="m3ShowCompositionRefSex('m')">Hombres</button>
@@ -1786,11 +1786,11 @@ header.brand-header{
           </div>
           <div class="m3-ref-table-wrap">
             <table class="m3-ref-table">
-              <thead><tr><th>Deporte / nivel</th><th>Edad media</th><th>Método</th><th>Grasa</th><th>Masa libre de grasa*</th><th>FMI</th><th>FFMI</th></tr></thead>
+              <thead><tr><th>Deporte / nivel</th><th>Método</th><th>Edad (años)</th><th>Estatura (m)</th><th>IMC (kg/m²)</th><th>Grasa corporal (%BF)</th></tr></thead>
               <tbody id="m3CompositionRefBody"></tbody>
             </table>
           </div>
-          <p class="m3-help">*Calculada como 100 − % grasa únicamente para facilitar la lectura. FMI = índice de masa grasa; FFMI = índice de masa libre de grasa.</p>
+          <p class="m3-help">Datos reproducidos de las Tablas 3 y 4 de Martinez-Mireles et al. (2026). “No indicado” significa que la edad no fue informada en la tabla original. ADP = pletismografía por desplazamiento de aire; DXA = absorciometría de rayos X de energía dual.</p>
           <div class="m3-ref">
             <strong>Referencia (APA 7.ª):</strong><br>
             Martinez-Mireles, X., Ramírez, E., Lagunes-Carrasco, J. O., López-García, R., García, S., Bouzas, C., Salas-García, R., &amp; Tur, J. A. (2026). Defining elite zones: A scoping review of body physique and body fat in elite athletes. <em>Journal of Functional Morphology and Kinesiology, 11</em>(1), 13. https://doi.org/10.3390/jfmk11010013
@@ -1879,7 +1879,7 @@ header.brand-header{
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 12.2 · Módulos 1–3 · Uso docente</span>
+  <span>Versión 12.3 · Módulos 1–3 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -2537,29 +2537,77 @@ function m3ResetResults(){['m3BMI','m3Sum6','m3FatPct','m3FFM','m3WHR','m3SpanRa
 
 const m3CompositionReferenceData={
  m:[
-  {sport:'Fútbol · 1.ª división Argentina',age:'23,2 años',method:'DXA',bf:12.2,fmi:3.0,ffmi:21.5},
-  {sport:'Baloncesto · Europeo U18, base',age:'17,8 años',method:'Antropometría',bf:12.2,fmi:2.8,ffmi:20.2},
-  {sport:'Ciclismo MTB · campeón mundial',age:'28,0 años',method:'Antropometría',bf:9.5,fmi:2.1,ffmi:19.8},
-  {sport:'Marcha · Juegos Panamericanos',age:'17,2 años',method:'Antropometría',bf:7.64,fmi:1.6,ffmi:19.1},
-  {sport:'Triatlón · selección Nueva Zelanda',age:'36,2 años',method:'Antropometría',bf:15.1,fmi:3.6,ffmi:20.0}
- ],
+{sport:'Sumo · selección nacional de Japón',method:'Pesaje hidrostático',age:'21,10',height:'1,791',bmi:'36,5',bf:'26,2'},
+{sport:'Fútbol · primera división nacional de Argentina',method:'DXA (Lunar DPX-L)',age:'23,20',height:'1,765',bmi:'24,5',bf:'12,2'},
+{sport:'Fútbol americano · NFL · running back',method:'ADP',age:'No indicado',height:'1,80',bmi:'29,8',bf:'7,3'},
+{sport:'Fútbol americano · NFL · offensive lineman',method:'ADP',age:'No indicado',height:'1,93',bmi:'37,6',bf:'25,1'},
+{sport:'Fútbol americano · NFL · quarterback',method:'ADP',age:'No indicado',height:'1,92',bmi:'28,3',bf:'14,6'},
+{sport:'Fútbol americano · NFL · wide receiver',method:'ADP',age:'No indicado',height:'1,80',bmi:'26,4',bf:'8,1'},
+{sport:'Fútbol americano · NFL · tight end',method:'ADP',age:'No indicado',height:'1,94',bmi:'30,7',bf:'15,1'},
+{sport:'Fútbol americano · NFL · linebacker',method:'ADP',age:'No indicado',height:'1,86',bmi:'31,2',bf:'15,7'},
+{sport:'Fútbol americano · NFL · defensive lineman',method:'ADP',age:'No indicado',height:'1,90',bmi:'35,1',bf:'18,5'},
+{sport:'Fútbol americano · NFL · defensive back',method:'ADP',age:'No indicado',height:'1,79',bmi:'27,2',bf:'6,3'},
+{sport:'Fútbol americano · NFL · kicker',method:'ADP',age:'No indicado',height:'1,91',bmi:'26,1',bf:'11,4'},
+{sport:'Waterpolo · TOP 4 Campeonato Mundial 2003',method:'DXA (Lunar DPX)',age:'25,50',height:'1,84',bmi:'26,8',bf:'16,8'},
+{sport:'Judo · selección nacional de Portugal',method:'DXA (QDR-4500)',age:'23,20',height:'1,76',bmi:'23,5',bf:'12,1'},
+{sport:'Judo · cinturón negro',method:'DXA (QDR 4500A)',age:'22,20',height:'1,76',bmi:'23,2',bf:'11,7'},
+{sport:'Esgrima · selección nacional de Kuwait',method:'ADP',age:'21,50',height:'1,75',bmi:'23,2',bf:'13,9'},
+{sport:'Jockeys de carreras en llano · selección nacional de Inglaterra',method:'DXA (Hologic)',age:'27,00',height:'1,67',bmi:'20,1',bf:'13,0'},
+{sport:'Jockeys de carreras de obstáculos · selección nacional de Inglaterra',method:'DXA (Hologic)',age:'25,00',height:'1,75',bmi:'21,3',bf:'11,5'},
+{sport:'Danza latina · TOP 6 mundial',method:'DXA (Lunar DPX-IQ)',age:'21,50',height:'1,75',bmi:'22,9',bf:'3,4'},
+{sport:'Danza estándar · TOP 6 mundial',method:'DXA (Lunar DPX-IQ)',age:'26,70',height:'1,83',bmi:'21,6',bf:'11,2'},
+{sport:'Diez bailes · TOP 6 mundial',method:'DXA (Lunar DPX-IQ)',age:'19,40',height:'1,80',bmi:'22,3',bf:'14,9'},
+{sport:'Fútbol australiano · Australia',method:'DXA (Prodigy)',age:'22,70',height:'1,86',bmi:'24,4',bf:'8,5'},
+{sport:'Fútbol australiano · Australia',method:'DXA (Lunar DPX-IQ)',age:'22,70',height:'1,86',bmi:'24,4',bf:'7,6'},
+{sport:'Rugby · selección nacional de Australia · delanteros',method:'DXA (Hologic Discovery A)',age:'25,40',height:'1,91',bmi:'30,6',bf:'14,2'},
+{sport:'Rugby · selección nacional de Australia · backs',method:'DXA (Hologic Discovery A)',age:'25,40',height:'1,82',bmi:'27,7',bf:'10,7'},
+{sport:'Fútbol americano · NFL · safety',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,822',bmi:'27,4',bf:'12,1'},
+{sport:'Fútbol americano · NFL · receiver',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,857',bmi:'27,3',bf:'12,5'},
+{sport:'Fútbol americano · NFL · running back',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,815',bmi:'32,0',bf:'16,0'},
+{sport:'Fútbol americano · NFL · tight end',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,929',bmi:'30,6',bf:'16,8'},
+{sport:'Fútbol americano · NFL · linebacker',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,867',bmi:'31,5',bf:'17,0'},
+{sport:'Fútbol americano · NFL · kicker',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,874',bmi:'28,0',bf:'19,2'},
+{sport:'Fútbol americano · NFL · quarterback',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,885',bmi:'29,2',bf:'19,6'},
+{sport:'Fútbol americano · NFL · offensive lineman',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,928',bmi:'37,9',bf:'28,8'},
+{sport:'Fútbol americano · NFL · defensive lineman',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,909',bmi:'36,5',bf:'25,2'},
+{sport:'Críquet · lanzadores rápidos de la selección de Inglaterra',method:'DXA (Lunar iDXA)',age:'22,60',height:'1,87',bmi:'24,3',bf:'17,4'},
+{sport:'Fútbol americano · primera división NCAA',method:'DXA (Hologic)',age:'19,50',height:'1,86',bmi:'31,1',bf:'19,3'},
+{sport:'Judo · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,76',bmi:'26,1',bf:'14,5'},
+{sport:'Boxeo · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,71',bmi:'23,1',bf:'9,1'},
+{sport:'Lucha · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,77',bmi:'24,3',bf:'13,1'},
+{sport:'Taekwondo · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,80',bmi:'21,0',bf:'8,8'},
+{sport:'Fútbol · primera división de España',method:'DXA (Hologic QDR)',age:'16,67',height:'1,74',bmi:'22,0',bf:'11,86'},
+{sport:'Rugby · selección nacional de Nueva Zelanda · delanteros',method:'DXA (Hologic Discovery A)',age:'27,2',height:'1,90',bmi:'32,3',bf:'17,8'},
+{sport:'Rugby · selección nacional de Nueva Zelanda · backs',method:'DXA (Hologic Discovery A)',age:'25,7',height:'1,83',bmi:'28,6',bf:'14,8'},
+{sport:'Strongman · nivel internacional',method:'DXA (Lunar iDXA)',age:'33,00',height:'1,87',bmi:'43,7',bf:'18,7'}
+],
  f:[
-  {sport:'Gimnasia artística · selección EE. UU.',age:'16,5 años',method:'DXA',bf:12.36,fmi:2.3,ffmi:16.6},
-  {sport:'Remo ligero · campeonato Australia',age:'23,0 años',method:'Antropometría',bf:12.4,fmi:2.5,ffmi:17.4},
-  {sport:'Voleibol · selección Grecia',age:'23,8 años',method:'Antropometría',bf:23.4,fmi:5.2,ffmi:17.0},
-  {sport:'Baloncesto · selección Grecia',age:'22,1 años',method:'Antropometría',bf:24.3,fmi:5.7,ffmi:17.7},
-  {sport:'Fútbol · selección Rep. Checa',age:'23,2 años',method:'BIA',bf:19.5,fmi:4.3,ffmi:17.6}
- ]
+{sport:'Gimnasia artística · selección nacional de Estados Unidos',method:'DXA (Lunar DPX-L)',age:'16,50',height:'1,64',bmi:'19,0',bf:'12,36'},
+{sport:'Culturismo · selección nacional de Australia 1998 y 1999',method:'DXA (Lunar DPX-L)',age:'35,60',height:'1,674',bmi:'21,6',bf:'9,7'},
+{sport:'Ballet · profesional',method:'DXA',age:'35,00',height:'1,682',bmi:'17,5',bf:'15,9'},
+{sport:'Balonmano · selección nacional de Italia · portera',method:'DXA (Hologic QDR Explorer W)',age:'24,00',height:'1,69',bmi:'26,2',bf:'29,7'},
+{sport:'Balonmano · selección nacional de Italia · defensora',method:'DXA (Hologic QDR Explorer W)',age:'23,20',height:'1,71',bmi:'23,2',bf:'25,1'},
+{sport:'Balonmano · selección nacional de Italia · pivote',method:'DXA (Hologic QDR Explorer W)',age:'23,70',height:'1,67',bmi:'23,9',bf:'22,7'},
+{sport:'Balonmano · selección nacional de Italia · extremo',method:'DXA (Hologic QDR Explorer W)',age:'21,80',height:'1,65',bmi:'22,4',bf:'24,4'},
+{sport:'Danza estándar · TOP 6 mundial',method:'DXA (Lunar DPX-IQ)',age:'25,30',height:'1,71',bmi:'19,6',bf:'20,9'},
+{sport:'Diez bailes · TOP 6 mundial',method:'DXA (Lunar DPX-IQ)',age:'19,00',height:'1,67',bmi:'19,9',bf:'22,6'},
+{sport:'Danza latina · TOP 6 mundial',method:'DXA (Lunar DPX-IQ)',age:'21,10',height:'1,63',bmi:'20,1',bf:'22,6'},
+{sport:'Fútbol · selección nacional de Dinamarca',method:'DXA (Prodigy Oracle)',age:'24,40',height:'1,72',bmi:'21,7',bf:'20,21'},
+{sport:'Judo · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,66',bmi:'24,7',bf:'24,9'},
+{sport:'Boxeo · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,64',bmi:'22,5',bf:'22,0'},
+{sport:'Lucha · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,63',bmi:'24,7',bf:'21,6'},
+{sport:'Taekwondo · nivel olímpico',method:'DXA (Lunar Prodigy)',age:'No indicado',height:'1,68',bmi:'21,2',bf:'23,1'},
+{sport:'Cross country · primera división NCAA',method:'DXA (GE Lunar iDXA)',age:'19,50',height:'1,66',bmi:'19,9',bf:'22,0'},
+{sport:'Lacrosse · primera división NCAA',method:'DXA (GE Lunar iDXA)',age:'19,70',height:'1,66',bmi:'23,1',bf:'23,7'},
+{sport:'Natación · primera división NCAA',method:'DXA (GE Lunar iDXA)',age:'19,30',height:'1,71',bmi:'22,4',bf:'23,0'}
+]
 };
 function m3RenderCompositionRefs(sex='m'){
  const body=document.getElementById('m3CompositionRefBody');if(!body)return;
  const rows=m3CompositionReferenceData[sex]||[];
  body.innerHTML=rows.map(r=>`<tr>
-   <td>${r.sport}</td><td>${r.age}</td><td>${r.method}</td>
-   <td class="num">${m3Fmt(r.bf,1)} %</td>
-   <td class="num">${m3Fmt(100-r.bf,1)} %</td>
-   <td class="num">${m3Fmt(r.fmi,1)} kg/m²</td>
-   <td class="num">${m3Fmt(r.ffmi,1)} kg/m²</td>
+   <td>${r.sport}</td><td>${r.method}</td><td class="num">${r.age}</td>
+   <td class="num">${r.height}</td><td class="num">${r.bmi}</td><td class="num">${r.bf} %</td>
  </tr>`).join('');
  document.querySelectorAll('.m3-ref-sex').forEach(b=>b.classList.toggle('active',b.dataset.sex===sex));
 }
