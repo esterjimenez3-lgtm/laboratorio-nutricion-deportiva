@@ -449,6 +449,22 @@ header.brand-header{
 .m3-ref-table td.num{text-align:right;font-variant-numeric:tabular-nums}
 @media print{body.m3-print .m3-composition-refs{display:none!important}}
 
+
+.m3-info-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;margin-left:6px;border-radius:50%;
+  border:1px solid #24527a;background:#eef6fb;color:#17476c;
+  font-weight:800;font-size:12px;line-height:1;cursor:pointer;
+  vertical-align:middle;padding:0;
+}
+.m3-info-btn:hover,.m3-info-btn:focus{background:#dceef9;outline:2px solid rgba(36,82,122,.18);outline-offset:1px}
+.m3-cormic-popover{
+  display:none;margin-top:8px;padding:11px 13px;border:1px solid #cbd9e5;
+  border-radius:10px;background:#f7fbfe;color:#243746;font-size:.9rem;
+  line-height:1.45;max-width:560px;box-shadow:0 4px 14px rgba(0,0,0,.07)
+}
+.m3-cormic-popover.show{display:block}
+
 </style>
 </head>
 <body>
@@ -520,7 +536,7 @@ header.brand-header{
         <div><label for="age">Edad (años)</label><input id="age" type="number" min="18" max="100" step="1" placeholder="Ej. 22"></div>
       </div>
       <div class="row">
-        <div><label for="weight">Peso (kg)</label><input id="weight" type="number" min="30" max="250" step="0.1" placeholder="Ej. 70.0"></div>
+        <div><label for="weight">Masa corporal (kg)</label><input id="weight" type="number" min="30" max="250" step="0.1" placeholder="Ej. 70.0"></div>
         <div><label for="height">Altura (cm)</label><input id="height" type="number" min="120" max="230" step="0.1" placeholder="Ej. 175"></div>
       </div>
 
@@ -1764,17 +1780,23 @@ header.brand-header{
         <div class="m3-report-title">
           <div>
             <h3>Composición corporal estimada</h3>
-            <p class="small">Los porcentajes representan la contribución estimada de cada componente al peso corporal.</p>
+            <p class="small">Los porcentajes representan la contribución estimada de cada componente al masa corporal.</p>
           </div>
           <button type="button" class="secondary" onclick="m3ToggleCompositionRefs()">Consultar referencias deportivas</button>
         </div>
         <div class="m3-composition">
           <div class="m3-donut" id="m3Donut">
-            <div class="m3-donut-center"><div><strong id="m3WeightCenter">—</strong><br><span>peso corporal</span></div></div>
+            <div class="m3-donut-center"><div><strong id="m3WeightCenter">—</strong><br><span>masa corporal</span></div></div>
           </div>
           <div class="m3-comp-list" id="m3CompList"></div>
         </div>
         <div class="m3-warning" id="m3CompositionNote">Completa las mediciones y pulsa “Calcular informe”.</div>
+        <div class="m3-method-note" id="m3CompositionMethodNote" style="margin-top:12px">
+          <strong>¿Qué mediciones son necesarias para obtener el gráfico completo?</strong><br>
+          <strong>Opción reducida:</strong> masa corporal, estatura, edad, sexo, pliegues bicipital, tricipital, subescapular e ileocrestal, diámetro biestiloideo de muñeca y diámetro bicondíleo del fémur. Con estas variables la masa grasa se estima mediante Durnin–Womersley + Siri; la masa muscular mediante el <strong>modelo 2 reducido de Lee et al. (2000)</strong>; la masa ósea mediante Rocha; y la masa residual por diferencia.<br><br>
+          <strong>Opción antropométrica ampliada:</strong> si además se registran perímetros de brazo relajado, muslo y pierna y sus pliegues correspondientes (tricipital, muslo anterior y pierna medial), la aplicación utiliza automáticamente el <strong>modelo 1 de Lee et al. (2000)</strong>, basado en perímetros corregidos. Este modelo mostró mayor ajuste en su validación original (R² = 0,91; SEE = 2,2 kg) que el modelo reducido basado principalmente en masa corporal y estatura (R² = 0,86; SEE = 2,8 kg).<br><br>
+          <strong>Importante:</strong> una, dos o tres tomas son aceptadas para realizar los cálculos. Si hay más de una toma, la aplicación utiliza su promedio. Tres tomas siguen siendo la opción recomendada para la práctica cuando el tiempo lo permita.
+        </div>
 
         <div id="m3CompositionRefs" class="m3-composition-refs" hidden>
           <div class="m3-method-note" style="margin-top:12px">
@@ -1803,7 +1825,11 @@ header.brand-header{
         <div class="m3-kpis" style="grid-template-columns:repeat(2,1fr)">
           <div class="m3-kpi"><div class="lab">Cintura / cadera</div><div class="val" id="m3WHR">—</div><div class="unit">razón</div></div>
           <div class="m3-kpi"><div class="lab">Envergadura / estatura</div><div class="val" id="m3SpanRatio">—</div><div class="unit">ratio</div></div>
-          <div class="m3-kpi"><div class="lab">Índice córmico</div><div class="val" id="m3Cormic">—</div><div class="unit">%</div></div>
+          <div class="m3-kpi"><div class="lab">Índice córmico <button type="button" class="m3-info-btn" onclick="m3ToggleCormicInfo(event)" aria-label="Información sobre el índice córmico" title="¿Qué es el índice córmico?">i</button></div><div class="val" id="m3Cormic">—</div><div id="m3CormicInfo" class="m3-cormic-popover" role="note">
+<strong>Índice córmico.</strong> Expresa la proporción entre la longitud del tronco (estatura sentado) y la estatura total:
+<strong>(estatura sentado / estatura) × 100</strong>.<br>
+Un valor relativamente mayor indica un <strong>tronco proporcionalmente más largo respecto a la estatura</strong>; un valor menor indica un <strong>tronco proporcionalmente más corto y, por extensión, unas extremidades inferiores relativamente más largas</strong>.
+</div><div class="unit">%</div></div>
           <div class="m3-kpi"><div class="lab">Músculo / hueso</div><div class="val" id="m3MuscleBone">—</div><div class="unit">ratio estimado</div></div>
         </div>
       </div>
@@ -1858,6 +1884,13 @@ header.brand-header{
 
   <section class="card" id="m3-references" style="margin-top:18px">
     <h2 class="section-title"><span class="section-icon">📚</span>3. Métodos, alcance y referencias</h2>
+    <div class="m3-method-note">
+      <strong>Ecuaciones utilizadas para la estimación de los componentes</strong><br>
+      <strong>Masa grasa:</strong> densidad corporal a partir de Σ4 pliegues (bicipital + tricipital + subescapular + ileocrestal) mediante las ecuaciones específicas por sexo y edad de Durnin y Womersley (1974), y conversión de densidad a % de grasa mediante la ecuación de Siri.<br>
+      <strong>Masa muscular esquelética:</strong> Lee et al. (2000). Modelo 1 cuando están disponibles estatura y los perímetros corregidos de brazo, muslo y pierna; modelo 2 reducido cuando faltan esos perímetros/pliegues, utilizando masa corporal, estatura, sexo, edad y corrección por grupo poblacional.<br>
+      <strong>Masa ósea:</strong> ecuación antropométrica de Rocha, basada en estatura y diámetros de muñeca y fémur.<br>
+      <strong>Masa residual:</strong> masa corporal − masa grasa − masa muscular − masa ósea. Por tanto, es un componente calculado por diferencia y no una medición independiente.
+    </div>
     <div class="m3-method-note"><strong>Importante:</strong> el bloque de “composición corporal” reproduce la lógica de las plantillas antropométricas aportadas: masa grasa mediante Durnin–Womersley + Siri, masa muscular esquelética mediante Lee et al., masa ósea mediante Rocha y masa residual calculada por diferencia. Estas estimaciones proceden de ecuaciones distintas y <strong>no constituyen una medición directa ni un modelo multicompartimental de referencia</strong>.</div>
     <div class="m3-ref"><strong>Perfil restringido ISAK.</strong> ISAK define el Nivel 1 como perfil restringido e incluye 4 medidas básicas, 8 pliegues cutáneos, 6 perímetros y 3 diámetros. La nomenclatura y estructura de este módulo se han adaptado a las plantillas docentes facilitadas.</div>
     <div class="m3-ref"><strong>Durnin, J. V. G. A., &amp; Womersley, J. (1974).</strong> Body fat assessed from total body density and its estimation from skinfold thickness: Measurements on 481 men and women aged from 16 to 72 years. <em>British Journal of Nutrition, 32</em>(1), 77–97. https://doi.org/10.1079/BJN19740060</div>
@@ -1879,7 +1912,7 @@ header.brand-header{
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 12.3 · Módulos 1–3 · Uso docente</span>
+  <span>Versión 12.5 · Módulos 1–3 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -2201,6 +2234,13 @@ function downloadCSV(){
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='laboratorio_nutricion_resultados.csv'; a.click(); URL.revokeObjectURL(a.href);
 }
+
+function m3ToggleCormicInfo(ev){
+  if(ev){ev.preventDefault();ev.stopPropagation();}
+  const box=document.getElementById('m3CormicInfo');
+  if(box) box.classList.toggle('show');
+}
+
 </script>
 
 <script>
@@ -2299,7 +2339,7 @@ window.addEventListener('DOMContentLoaded',()=>{renderDietDays();restoreModule2(
 
 <script>
 const m3Measures=[
- {group:'Medidas básicas',key:'weight',label:'Peso corporal',unit:'kg'},
+ {group:'Medidas básicas',key:'weight',label:'Masa corporal',unit:'kg'},
  {group:'Medidas básicas',key:'height',label:'Estatura',unit:'cm'},
  {group:'Medidas básicas',key:'sittingHeight',label:'Talla sentado',unit:'cm'},
  {group:'Medidas básicas',key:'armSpan',label:'Envergadura',unit:'cm'},
@@ -2323,7 +2363,10 @@ const m3Measures=[
 ];
 function m3Num(v){const n=parseFloat(v);return Number.isFinite(n)&&n>0?n:NaN}
 function m3Fmt(v,d=1){return Number.isFinite(v)?v.toFixed(d).replace('.',','):'—'}
-function m3Average(vals){const a=vals.map(m3Num);return a.every(Number.isFinite)?a.reduce((s,x)=>s+x,0)/3:NaN}
+function m3Average(vals){
+ const a=vals.map(m3Num).filter(Number.isFinite);
+ return a.length?a.reduce((sum,x)=>sum+x,0)/a.length:NaN;
+}
 function m3RenderRows(){
  const body=document.getElementById('m3MeasureBody'); if(!body||body.dataset.ready)return;
  let out='',last='';
@@ -2350,12 +2393,30 @@ function m3Data(){
 function m3UpdateMeans(){
  let complete=0;
  document.querySelectorAll('#m3MeasureBody tr[data-m3key]').forEach(r=>{
-  const nums=[...r.querySelectorAll('input')].map(x=>m3Num(x.value)),avg=nums.every(Number.isFinite)?nums.reduce((a,b)=>a+b,0)/3:NaN;
+  const nums=[...r.querySelectorAll('input')].map(x=>m3Num(x.value)).filter(Number.isFinite);
+  const avg=nums.length?nums.reduce((a,b)=>a+b,0)/nums.length:NaN;
   r.querySelector('.m3-mean').textContent=Number.isFinite(avg)?m3Fmt(avg,2):'—';
-  if(Number.isFinite(avg)){complete++;const spread=(Math.max(...nums)-Math.min(...nums))/avg*100;const cell=r.querySelector('.m3-disp');const meta=m3Measures.find(x=>x.key===r.dataset.m3key);const limit=meta?.group==='Pliegues cutáneos'?5:1;cell.textContent=m3Fmt(spread,1)+' %';cell.classList.toggle('alert',spread>limit);cell.classList.toggle('ok',spread<=limit);cell.title=spread>limit?`Supera el criterio operativo de ${limit}%: revisar/repetir medición.`:`Dentro del criterio operativo de ${limit}%.`;}
-  else{const cell=r.querySelector('.m3-disp');cell.textContent='—';cell.classList.remove('alert','ok');cell.title='';}
+  const cell=r.querySelector('.m3-disp');
+  if(Number.isFinite(avg)){
+    complete++;
+    if(nums.length>=2){
+      const spread=(Math.max(...nums)-Math.min(...nums))/avg*100;
+      const meta=m3Measures.find(x=>x.key===r.dataset.m3key);
+      const limit=meta?.group==='Pliegues cutáneos'?5:1;
+      cell.textContent=m3Fmt(spread,1)+' % · '+nums.length+' tomas';
+      cell.classList.toggle('alert',spread>limit);
+      cell.classList.toggle('ok',spread<=limit);
+      cell.title=spread>limit?`Supera el criterio operativo de ${limit}%: revisar/repetir medición.`:`Dentro del criterio operativo de ${limit}%.`;
+    }else{
+      cell.textContent='1 toma';
+      cell.classList.remove('alert','ok');
+      cell.title='Cálculo disponible con una medición. Para valorar la dispersión se necesitan al menos dos tomas.';
+    }
+  }else{
+    cell.textContent='—';cell.classList.remove('alert','ok');cell.title='';
+  }
  });
- const c=document.getElementById('m3Completeness');if(c)c.textContent=`${complete} / ${m3Measures.length} completas`;
+ const c=document.getElementById('m3Completeness');if(c)c.textContent=`${complete} / ${m3Measures.length} variables registradas`;
 }
 function m3Save(show=false){
  if(!document.getElementById('m3MeasureBody')?.dataset.ready)return;
@@ -2414,7 +2475,12 @@ function m3Calculations(){
  const density=m3DW(sex,age,sum4),fatPct=Number.isFinite(density)?495/density-450:NaN,fatKg=weight*fatPct/100;
  const cArm=v.armRelaxed-Math.PI*(v.triceps/10),cThigh=v.thighGirth-Math.PI*(v.thighSF/10),cCalf=v.calfGirth-Math.PI*(v.calfSF/10);
  const sexCode=sex==='m'?1:0;
- const muscleKg=heightM*(.00744*cArm*cArm+.00088*cThigh*cThigh+.00441*cCalf*cCalf)+2.4*sexCode-.048*age+race+7.8;
+ const muscleKgLee1=heightM*(.00744*cArm*cArm+.00088*cThigh*cThigh+.00441*cCalf*cCalf)+2.4*sexCode-.048*age+race+7.8;
+ const muscleKgLee2=.244*weight+7.80*heightM+6.6*sexCode-.098*age+race-3.3;
+ const lee1Ready=[heightM,cArm,cThigh,cCalf,age].every(Number.isFinite);
+ const lee2Ready=[weight,heightM,age].every(Number.isFinite);
+ const muscleKg=lee1Ready?muscleKgLee1:(lee2Ready?muscleKgLee2:NaN);
+ const muscleMethod=lee1Ready?'Lee et al. (2000), modelo 1 · perímetros corregidos':(lee2Ready?'Lee et al. (2000), modelo 2 reducido · masa corporal y estatura':'—');
  const boneKg=3.02*Math.pow((heightM*heightM)*(v.wrist/100)*(v.femur/100)*400,.712);
  const residualKg=weight-fatKg-muscleKg-boneKg,ffmKg=weight-fatKg;
  const musclePct=muscleKg/weight*100,bonePct=boneKg/weight*100,residualPct=residualKg/weight*100;
@@ -2425,7 +2491,7 @@ function m3Calculations(){
  let meso=.858*v.humerus+.601*v.femur+.188*corrFlex+.161*corrCalfSom-.131*height+4.5;meso=Math.max(.1,meso);
  const hwr=height/Math.cbrt(weight);let ecto=hwr>=40.75?.732*hwr-28.58:(hwr>38.25?.463*hwr-17.63:.1);ecto=Math.max(.1,ecto);
  const sx=ecto-endo,sy=2*meso-(endo+ecto);
- return {d,v,weight,height,bmi,sum4,sum6,sum7,sum8,density,fatPct,fatKg,ffmKg,muscleKg,musclePct,boneKg,bonePct,residualKg,residualPct,whr,spanRatio,cormic,muscleBone,endo,meso,ecto,sx,sy,hwr,cArm,cThigh,cCalf};
+ return {d,v,weight,height,bmi,sum4,sum6,sum7,sum8,density,fatPct,fatKg,ffmKg,muscleKg,musclePct,muscleMethod,boneKg,bonePct,residualKg,residualPct,whr,spanRatio,cormic,muscleBone,endo,meso,ecto,sx,sy,hwr,cArm,cThigh,cCalf};
 }
 function m3Calculate(scroll=true){
  m3UpdateMeans();const c=m3Calculations(),needed=['weight','height','subscapular','triceps','biceps','iliac','supraspinale','abdominal','thighSF','calfSF','armRelaxed','armFlexed','thighGirth','calfGirth','waist','hip','humerus','wrist','femur'];
@@ -2435,7 +2501,7 @@ function m3Calculate(scroll=true){
  document.getElementById('m3Sum4').textContent=m3Fmt(c.sum4,1);document.getElementById('m3Sum7').textContent=m3Fmt(c.sum7,1);document.getElementById('m3Sum8').textContent=m3Fmt(c.sum8,1);
  document.getElementById('m3WHR').textContent=m3Fmt(c.whr,2);document.getElementById('m3SpanRatio').textContent=m3Fmt(c.spanRatio,2);document.getElementById('m3Cormic').textContent=m3Fmt(c.cormic,1);document.getElementById('m3MuscleBone').textContent=m3Fmt(c.muscleBone,2);
  document.getElementById('m3Endo').textContent=m3Fmt(c.endo,1);document.getElementById('m3Meso').textContent=m3Fmt(c.meso,1);document.getElementById('m3Ecto').textContent=m3Fmt(c.ecto,1);
- document.getElementById('m3SomatoClass').textContent='Clasificación: '+(missing.length?'—':m3SomatoClass(c.endo,c.meso,c.ecto));
+ document.getElementById('m3SomatoClass').textContent='Clasificación: '+([c.endo,c.meso,c.ecto].every(Number.isFinite)?m3SomatoClass(c.endo,c.meso,c.ecto):'—');
  document.getElementById('m3ISAKWeight').textContent=m3Fmt(c.weight,1);document.getElementById('m3ISAKHeight').textContent=m3Fmt(c.height,1);document.getElementById('m3ISAKSum8').textContent=m3Fmt(c.sum8,1);document.getElementById('m3ISAKSomato').textContent=[c.endo,c.meso,c.ecto].every(Number.isFinite)?`${m3Fmt(c.endo,1)}–${m3Fmt(c.meso,1)}–${m3Fmt(c.ecto,1)}`:'—';m3RenderProfileTable(c);
  document.getElementById('m3XY').textContent=`X ${m3Fmt(c.sx,2)} · Y ${m3Fmt(c.sy,2)}`;const wc=document.getElementById('m3WeightCenter');if(wc)wc.textContent=Number.isFinite(c.weight)?m3Fmt(c.weight,1)+' kg':'—';
  m3RenderSkinfolds(c);m3RenderComposition(c);m3RenderSomato(c);
@@ -2490,7 +2556,7 @@ function m3RenderComposition(c){
  if(valid){
    if(c.residualKg>=0){
      note.className='m3-good';
-     note.innerHTML=`<strong>Resultado calculado.</strong> Masa grasa ${m3Fmt(c.fatPct,1)} %, masa muscular ${m3Fmt(c.musclePct,1)} %, masa ósea ${m3Fmt(c.bonePct,1)} % y masa residual ${m3Fmt(c.residualPct,1)} %. Masa libre de grasa: ${m3Fmt(c.ffmKg,1)} kg (${m3Fmt(100-c.fatPct,1)} %).`;
+     note.innerHTML=`<strong>Resultado calculado.</strong> Masa grasa ${m3Fmt(c.fatPct,1)} %, masa muscular ${m3Fmt(c.musclePct,1)} %, masa ósea ${m3Fmt(c.bonePct,1)} % y masa residual ${m3Fmt(c.residualPct,1)} %. Masa libre de grasa: ${m3Fmt(c.ffmKg,1)} kg (${m3Fmt(100-c.fatPct,1)} %).<br><strong>Método muscular aplicado:</strong> ${c.muscleMethod}.`;
    }else{
      note.className='m3-warning';
      note.innerHTML=`<strong>Resultado calculado, pero revisar.</strong> La combinación de ecuaciones produce una masa residual negativa (${m3Fmt(c.residualKg,1)} kg). Comprueba las mediciones y la aplicabilidad de las ecuaciones.`;
