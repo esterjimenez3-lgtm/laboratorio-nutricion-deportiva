@@ -465,6 +465,23 @@ header.brand-header{
 }
 .m3-cormic-popover.show{display:block}
 
+
+/* ===== MEDAS-14 · PREDIMED ===== */
+.medas-scorebar{display:flex;align-items:center;gap:18px;justify-content:space-between;background:linear-gradient(135deg,#f3f8f1,#eef7f7);border:1px solid #cfe0d0;border-radius:14px;padding:14px 18px;margin:14px 0 8px}
+.medas-score-label{font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:900;color:#47614d}
+.medas-score{font-size:38px;font-weight:900;color:#205d42;line-height:1}.medas-score small{font-size:16px;color:#6f8175;margin-left:3px}
+.medas-status{display:flex;flex-direction:column;gap:5px;text-align:right}.medas-status strong{font-size:16px;color:#173b32}.medas-status span{font-size:12px;color:#60736a}
+.medas-scale{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:8px 0 16px}.medas-scale span{padding:8px 10px;border-radius:9px;text-align:center;font-size:12px;background:#f6f8fa;border:1px solid #dde4e8;color:#45555e}
+.medas-list{display:grid;gap:9px;margin-top:14px}
+.medas-item{display:grid;grid-template-columns:38px minmax(0,1fr) 210px;gap:12px;align-items:center;border:1px solid #dce5e3;border-radius:12px;padding:12px;background:#fff}
+.medas-item:hover{border-color:#aaccc3;box-shadow:0 2px 9px rgba(29,92,71,.06)}
+.medas-num{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#e3f1ea;color:#216247;font-weight:900}
+.medas-question{font-weight:800;color:#203a35;line-height:1.35}.medas-criterion{font-size:12px;color:#315e50;margin-top:5px}.medas-note{font-size:11.5px;color:#6b7774;margin-top:3px}
+.medas-choice{display:flex;gap:6px;justify-content:flex-end}.medas-choice label{cursor:pointer}.medas-choice input{position:absolute;opacity:0}.medas-choice span{display:block;border:1px solid #cbd9d5;border-radius:8px;padding:8px 9px;font-size:12px;font-weight:800;color:#53655f;background:#f9fbfa;white-space:nowrap}
+.medas-choice input:checked + span{background:#246c4d;color:#fff;border-color:#246c4d;box-shadow:0 0 0 2px rgba(36,108,77,.12)}
+@media(max-width:850px){.medas-item{grid-template-columns:36px 1fr}.medas-choice{grid-column:2;justify-content:flex-start}.medas-scorebar{align-items:flex-start}.medas-scale{grid-template-columns:1fr}.medas-status{text-align:left}}
+@media print{.medas-choice span{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}.medas-item{break-inside:avoid}}
+
 </style>
 </head>
 <body>
@@ -489,12 +506,12 @@ header.brand-header{
   <aside class="sidebar">
     <div class="side-head">Laboratorio</div>
     <div class="module-switch">
-      <button class="module-btn active" id="moduleBtn1" type="button" onclick="showModule(1)">⚡ Módulo 1 · Energía</button>
-      <button class="module-btn" id="moduleBtn2" type="button" onclick="showModule(2)">📝 Módulo 2 · Registro dietético</button>
+      <button class="module-btn active" id="moduleBtn1" type="button" onclick="showModule(1)">📝 Módulo 1 · Registro dietético</button>
+      <button class="module-btn" id="moduleBtn2" type="button" onclick="showModule(2)">⚡ Módulo 2 · Energía</button>
       <button class="module-btn" id="moduleBtn3" type="button" onclick="showModule(3)">📐 Módulo 3 · Composición corporal</button>
     </div>
-    <div id="m1Side">
-      <div class="side-head">Módulo 1 · Energía</div>
+    <div id="m1Side" style="display:none">
+      <div class="side-head">Módulo 2 · Energía</div>
       <a class="side-link active" href="#datos"><span class="side-dot"></span>Datos y TMB</a>
     <a class="side-link" href="#get"><span class="side-dot"></span>Gasto energético total</a>
     <a class="side-link" href="#fc"><span class="side-dot"></span>Gasto del ejercicio por FC</a>
@@ -502,10 +519,11 @@ header.brand-header{
     <a class="side-link" href="#referencias"><span class="side-dot"></span>Fórmulas y referencias</a>
 
     </div>
-    <div id="m2Side" class="m2-only">
-      <div class="side-head">Módulo 2 · Registro dietético</div>
+    <div id="m2Side" class="m2-only" style="display:block">
+      <div class="side-head">Módulo 1 · Registro dietético</div>
       <a class="side-link" href="#m2-registro"><span class="side-dot"></span>Registro de 3 días</a>
       <a class="side-link" href="#m2-cfca"><span class="side-dot"></span>Frecuencia de consumo</a>
+      <a class="side-link" href="#m2-predimed"><span class="side-dot"></span>PREDIMED · MEDAS-14</a>
       <a class="side-link" href="#m2-export"><span class="side-dot"></span>Exportación</a>
     </div>
 
@@ -523,7 +541,7 @@ header.brand-header{
       <div>Módulo 6 · Proteínas</div>
     </div>
   </aside>
-  <div class="app-content"><main><div id="module1Content">
+  <div class="app-content"><main><div id="module1Content" style="display:none">
     <div class="edu-banner">
       <div><strong>Herramienta educativa:</strong> introduce datos, compara métodos y analiza sus limitaciones. Los resultados son estimaciones y deben interpretarse dentro del contexto del deportista.</div>
       <div><strong>Uso responsable:</strong> no sustituye una valoración individual ni una medición directa.</div>
@@ -543,7 +561,7 @@ header.brand-header{
       <div class="row">
         <div>
           <label for="bmiOutInput">IMC calculado (kg/m²)</label>
-          <input id="bmiOutInput" type="text" readonly placeholder="Se calculará con peso + altura" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
+          <input id="bmiOutInput" type="text" readonly placeholder="Se calculará con masa corporal + altura" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
         </div>
         <div>
           <label for="bmiCategory">Categoría IMC (adultos ≥18 años)</label>
@@ -560,7 +578,7 @@ header.brand-header{
         </div>
         <div>
           <label for="ffmCalc">MLG calculada automáticamente (kg)</label>
-          <input id="ffmCalc" type="text" readonly placeholder="Se calculará con peso + % grasa" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
+          <input id="ffmCalc" type="text" readonly placeholder="Se calculará con masa corporal + % grasa" style="background:#f3f7fb;font-weight:800;color:#0f2d5c">
         </div>
       </div>
       <div class="row">
@@ -573,8 +591,8 @@ header.brand-header{
         </div>
       </div>
       <p class="small">
-        Si introduces <strong>peso + % de grasa</strong>, la app calcula automáticamente:
-        <strong>MLG = peso × (1 − %grasa/100)</strong>. Si además introduces una MLG manual,
+        Si introduces <strong>masa corporal + % de grasa</strong>, la app calcula automáticamente:
+        <strong>MLG = masa corporal × (1 − %grasa/100)</strong>. Si además introduces una MLG manual,
         la app utilizará la <strong>MLG manual</strong> en los cálculos.
       </p>
 
@@ -805,9 +823,9 @@ header.brand-header{
 </div></section>
 
 </div>
-<div id="module2Content" style="display:none">
+<div id="module2Content">
   <div class="edu-banner">
-    <div><strong>Módulo 2 · Registro dietético:</strong> completa el registro prospectivo de 3 días y el cuestionario retrospectivo de frecuencia de consumo.</div>
+    <div><strong>Módulo 1 · Registro dietético:</strong> completa el registro prospectivo de 3 días, el cuestionario de frecuencia de consumo y el cuestionario MEDAS-14 de adherencia a la dieta mediterránea.</div>
     <div><strong>Privacidad:</strong> los datos se guardan únicamente en este navegador salvo que los exportes.</div>
   </div>
   <section class="card" id="m2-registro">
@@ -825,7 +843,7 @@ header.brand-header{
       <button type="button" class="secondary" onclick="addDietRow(currentDay)">＋ Añadir fila de ingesta</button>
       <button type="button" class="secondary" onclick="addActivityRow(currentDay)">＋ Añadir fila de actividad</button>
       <button type="button" class="btn-green" onclick="saveModule2()">Guardar en este navegador</button>
-      <button type="button" class="secondary" onclick="clearModule2()">Limpiar módulo 2</button>
+      <button type="button" class="secondary" onclick="clearModule2()">Limpiar módulo 1</button>
     </div>
   </section>
   <section class="card" id="m2-cfca" style="margin-top:18px">
@@ -1662,16 +1680,242 @@ header.brand-header{
     </div>
     <p class="small"><strong>Referencia:</strong> Trinidad Rodríguez, I., Fernández Ballart, J., Cucó Pastor, G., Biarnés Jordà, E., &amp; Arija Val, V. (2008). Validación de un cuestionario de frecuencia de consumo alimentario corto: reproducibilidad y validez. <em>Nutrición Hospitalaria, 23</em>(3), 242–252.</p>
   </section>
+  
+  <section class="card" id="m2-predimed" style="margin-top:18px">
+    <h2 class="section-title"><span class="section-icon">🫒</span>3. MEDAS-14 · Adherencia a la dieta mediterránea (PREDIMED)</h2>
+    <p>Cuestionario breve de <strong>14 ítems</strong> utilizado en el estudio PREDIMED para valorar la adherencia al patrón de dieta mediterránea. Cada criterio cumplido suma <strong>1 punto</strong>; la puntuación total oscila entre <strong>0 y 14 puntos</strong>.</p>
+    <div class="note"><strong>Uso docente:</strong> responde según tu consumo habitual. La puntuación resume la adherencia al patrón evaluado por el instrumento y <strong>no constituye un diagnóstico ni sustituye una valoración dietética individual</strong>.</div>
+    <div class="medas-scorebar">
+      <div>
+        <div class="medas-score-label">Puntuación MEDAS-14</div>
+        <div class="medas-score"><span id="medasScore">0</span><small>/14</small></div>
+      </div>
+      <div class="medas-status">
+        <strong id="medasInterpretation">Cuestionario sin completar</strong>
+        <span id="medasProgress">0 de 14 ítems respondidos</span>
+      </div>
+    </div>
+    <div class="medas-scale">
+      <span><b>0–5</b> adherencia baja</span>
+      <span><b>6–9</b> adherencia moderada</span>
+      <span><b>10–14</b> adherencia alta</span>
+    </div>
+    <p class="small">La categorización anterior se ofrece como apoyo descriptivo para la práctica. En el estudio PREDIMED, el cuestionario se empleó principalmente como una puntuación de adherencia de 0 a 14 y como herramienta de intervención/seguimiento.</p>
+
+    <div class="medas-list">
+
+      <div class="medas-item" data-medas="1">
+        <div class="medas-num">1</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Utiliza el aceite de oliva como principal grasa para cocinar?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> Sí</div>
+          <div class="medas-note">Uso de aceite de oliva como grasa culinaria principal.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 1">
+          <label><input type="radio" name="medas_1" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_1" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="2">
+        <div class="medas-num">2</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuánto aceite de oliva consume en total al día (incluido el utilizado para freír, aliñar, comidas fuera de casa, etc.)?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 4 cucharadas/día</div>
+          <div class="medas-note">Puntúa si el consumo total es de 4 o más cucharadas al día.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 2">
+          <label><input type="radio" name="medas_2" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_2" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="3">
+        <div class="medas-num">3</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas raciones de verduras u hortalizas consume al día? (1 ración ≈ 200 g; guarniciones ≈ ½ ración)</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 2 raciones/día</div>
+          <div class="medas-note">En el instrumento original, al menos una de las raciones debe consumirse cruda o en ensalada.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 3">
+          <label><input type="radio" name="medas_3" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_3" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="4">
+        <div class="medas-num">4</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas piezas o raciones de fruta consume al día? (incluidos zumos naturales)</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 3 raciones/día</div>
+          <div class="medas-note">Puntúa con tres o más raciones al día.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 4">
+          <label><input type="radio" name="medas_4" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_4" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="5">
+        <div class="medas-num">5</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas raciones de carne roja, hamburguesas, salchichas o embutidos consume al día?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> &lt; 1 ración/día</div>
+          <div class="medas-note">1 ración ≈ 100–150 g.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 5">
+          <label><input type="radio" name="medas_5" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_5" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="6">
+        <div class="medas-num">6</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas raciones de mantequilla, margarina o nata consume al día?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> &lt; 1 ración/día</div>
+          <div class="medas-note">1 ración ≈ 12 g.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 6">
+          <label><input type="radio" name="medas_6" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_6" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="7">
+        <div class="medas-num">7</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas bebidas azucaradas o carbonatadas consume al día?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> &lt; 1 bebida/día</div>
+          <div class="medas-note">Puntúa cuando el consumo es inferior a una al día.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 7">
+          <label><input type="radio" name="medas_7" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_7" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="8">
+        <div class="medas-num">8</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuánto vino consume a la semana?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 7 copas/semana</div>
+          <div class="medas-note">Ítem del cuestionario original. No constituye una recomendación para iniciar o aumentar el consumo de alcohol. *Nota: Si no bebe alcohol, no debe empezar a hacerlo*</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 8">
+          <label><input type="radio" name="medas_8" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_8" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="9">
+        <div class="medas-num">9</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas raciones de legumbres consume a la semana?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 3 raciones/semana</div>
+          <div class="medas-note">1 ración ≈ 150 g.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 9">
+          <label><input type="radio" name="medas_9" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_9" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="10">
+        <div class="medas-num">10</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas raciones de pescado o marisco consume a la semana?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 3 raciones/semana</div>
+          <div class="medas-note">1 ración de pescado ≈ 100–150 g; marisco ≈ 200 g.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 10">
+          <label><input type="radio" name="medas_10" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_10" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="11">
+        <div class="medas-num">11</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas veces consume repostería comercial (no casera), como galletas, flanes, dulces o pasteles, a la semana?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> &lt; 3 veces/semana</div>
+          <div class="medas-note">Puntúa cuando el consumo es inferior a tres veces por semana.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 11">
+          <label><input type="radio" name="medas_11" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_11" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="12">
+        <div class="medas-num">12</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas veces consume frutos secos a la semana?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 3 raciones/semana</div>
+          <div class="medas-note">1 ración ≈ 30 g.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 12">
+          <label><input type="radio" name="medas_12" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_12" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="13">
+        <div class="medas-num">13</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Consume preferentemente pollo, pavo o conejo en lugar de ternera, cerdo, hamburguesas o salchichas?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> Sí</div>
+          <div class="medas-note">Preferencia por carnes blancas frente a carnes rojas/procesadas.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 13">
+          <label><input type="radio" name="medas_13" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_13" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+
+      <div class="medas-item" data-medas="14">
+        <div class="medas-num">14</div>
+        <div class="medas-q">
+          <div class="medas-question">¿Cuántas veces consume verduras, pasta, arroz u otros platos condimentados con sofrito (salsa de tomate, ajo, cebolla o puerro elaborada con aceite de oliva) a la semana?</div>
+          <div class="medas-criterion"><strong>Criterio para 1 punto:</strong> ≥ 2 veces/semana</div>
+          <div class="medas-note">Puntúa con dos o más veces por semana.</div>
+        </div>
+        <div class="medas-choice" role="radiogroup" aria-label="Pregunta 14">
+          <label><input type="radio" name="medas_14" value="1"><span>Sí cumple</span></label>
+          <label><input type="radio" name="medas_14" value="0"><span>No cumple</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning"><strong>Alcohol:</strong> el ítem sobre vino forma parte del cuestionario MEDAS-14 original y se conserva para mantener su estructura. <strong>No debe interpretarse como una recomendación para empezar a beber o aumentar el consumo de alcohol.</strong></div>
+
+    <div class="m3-method-note" style="margin-top:14px">
+      <strong>Base científica del instrumento.</strong> El MEDAS-14 fue desarrollado y utilizado en el marco del ensayo PREDIMED. La herramienta de 14 ítems mostró utilidad para estimar la adherencia a la dieta mediterránea y se ha empleado ampliamente en investigación nutricional. Para esta aplicación se conserva la lógica de puntuación dicotómica del instrumento original: 1 punto cuando se cumple el criterio y 0 cuando no se cumple.
+    </div>
+
+    <h3 style="margin-top:18px">Referencias</h3>
+    <div class="ref-item">
+      <strong>Martínez-González, M. Á., García-Arellano, A., Toledo, E., Salas-Salvadó, J., Buil-Cosiales, P., Corella, D., Covas, M. I., Schröder, H., Arós, F., Gómez-Gracia, E., Fiol, M., Ruiz-Gutiérrez, V., Lapetra, J., Lamuela-Raventós, R. M., Serra-Majem, L., Pintó, X., Muñoz, M. A., Wärnberg, J., Ros, E., &amp; Estruch, R. (2012).</strong> A 14-item Mediterranean diet assessment tool and obesity indexes among high-risk subjects: The PREDIMED trial. <em>PLoS ONE, 7</em>(8), e43134. https://doi.org/10.1371/journal.pone.0043134
+    </div>
+    <div class="ref-item">
+      <strong>Schröder, H., Fitó, M., Estruch, R., Martínez-González, M. Á., Corella, D., Salas-Salvadó, J., Lamuela-Raventós, R., Ros, E., Salaverría, I., Fiol, M., Lapetra, J., Vinyoles, E., &amp; Covas, M. I. (2011).</strong> A short screener is valid for assessing Mediterranean diet adherence among older Spanish men and women. <em>The Journal of Nutrition, 141</em>(6), 1140–1145. https://doi.org/10.3945/jn.110.135566
+    </div>
+    <div class="ref-item">
+      <strong>Estruch, R., Ros, E., Salas-Salvadó, J., Covas, M. I., Corella, D., Arós, F., Gómez-Gracia, E., Ruiz-Gutiérrez, V., Fiol, M., Lapetra, J., Lamuela-Raventós, R. M., Serra-Majem, L., Pintó, X., Basora, J., Muñoz, M. A., Sorlí, J. V., Martínez, J. A., Fitó, M., … Martínez-González, M. A. (2018).</strong> Primary prevention of cardiovascular disease with a Mediterranean diet supplemented with extra-virgin olive oil or nuts. <em>New England Journal of Medicine, 378</em>(25), e34. https://doi.org/10.1056/NEJMoa1800389
+    </div>
+  </section>
+
   <section class="card" id="m2-export" style="margin-top:18px">
-    <h2 class="section-title"><span class="section-icon">📤</span>3. Exportar y entregar</h2>
+    <h2 class="section-title"><span class="section-icon">📤</span>4. Exportar y entregar</h2>
     <p>Puedes exportar cada instrumento o el módulo completo. Los archivos <strong>.xls</strong> se abren directamente en Excel. Para PDF, la app genera una vista de impresión que conserva la <strong>maquetación, tarjetas y colores del visor</strong>; selecciona <strong>Guardar como PDF</strong>.</p>
     <div class="m2-actions">
       <button type="button" class="btn-green" onclick="exportDietXLS()">Excel · Registro 3 días</button>
       <button type="button" class="btn-green" onclick="exportCFCA_XLS()">Excel · CFCA</button>
+      <button type="button" class="btn-green" onclick="exportMEDAS_XLS()">Excel · MEDAS-14</button>
       <button type="button" class="btn-teal" onclick="exportAllXLS()">Excel · Todo el módulo</button>
       <button type="button" class="btn-orange" onclick="printModule2()">PDF · Imprimir/Guardar</button>
     </div>
-    <div class="goodnote"><strong>Antes de exportar:</strong> comprueba que los tres días están completos y que el CFCA tiene una respuesta para cada uno de los 45 alimentos.</div>
+    <div class="goodnote"><strong>Antes de exportar:</strong> comprueba que los tres días están completos, que el CFCA tiene una respuesta para cada uno de los 45 alimentos y que has respondido los 14 ítems del MEDAS-14.</div>
   </section>
 </div>
 
@@ -1912,7 +2156,7 @@ Un valor relativamente mayor indica un <strong>tronco proporcionalmente más lar
 </div>
 <div class="app-footer">
   <span>Laboratorio de Nutrición Deportiva · Dra. Ester Jiménez Ormeño</span>
-  <span>Versión 12.5 · Módulos 1–3 · Uso docente</span>
+  <span>Versión 13.1 · Módulos 1–3 · Uso docente</span>
 </div>
 
 <footer style="display:none">
@@ -2279,11 +2523,18 @@ let currentDay=1;
 const dietRowsDefault=12, activityRowsDefault=5;
 function m2esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function showModule(n){
- const m1=document.getElementById('module1Content'),m2=document.getElementById('module2Content'),m3=document.getElementById('module3Content');
- m1.style.display=n===1?'block':'none';m2.style.display=n===2?'block':'none';m3.style.display=n===3?'block':'none';
- document.getElementById('m1Side').style.display=n===1?'block':'none';document.getElementById('m2Side').style.display=n===2?'block':'none';document.getElementById('m3Side').style.display=n===3?'block':'none';
- document.getElementById('moduleBtn1').classList.toggle('active',n===1);document.getElementById('moduleBtn2').classList.toggle('active',n===2);document.getElementById('moduleBtn3').classList.toggle('active',n===3);
- if(n===2){renderDietDays();restoreModule2();updateCFCAProgress();}
+ const energy=document.getElementById('module1Content'),diet=document.getElementById('module2Content'),m3=document.getElementById('module3Content');
+ // Orden visible: 1 Registro dietético, 2 Energía, 3 Composición corporal.
+ diet.style.display=n===1?'block':'none';
+ energy.style.display=n===2?'block':'none';
+ m3.style.display=n===3?'block':'none';
+ document.getElementById('m2Side').style.display=n===1?'block':'none';
+ document.getElementById('m1Side').style.display=n===2?'block':'none';
+ document.getElementById('m3Side').style.display=n===3?'block':'none';
+ document.getElementById('moduleBtn1').classList.toggle('active',n===1);
+ document.getElementById('moduleBtn2').classList.toggle('active',n===2);
+ document.getElementById('moduleBtn3').classList.toggle('active',n===3);
+ if(n===1){renderDietDays();restoreModule2();updateCFCAProgress();updateMEDAS();}
  if(n===3){m3RenderRows();m3Restore();m3UpdateMeans();m3RenderSomato({sx:NaN,sy:NaN});}
  window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -2318,22 +2569,117 @@ function addActivityRow(day){const b=document.querySelector(`#dietDay${day} .act
 function collectDay(day){const p=document.getElementById(`dietDay${day}`);return{date:p.querySelector('.day-date').value,weekday:p.querySelector('.day-weekday').value,comments:p.querySelector('.day-comments').value,
  diet:[...p.querySelectorAll('.diet-body tr')].map(r=>({time:r.querySelector('.d-time').value,food:r.querySelector('.d-food').value,amount:r.querySelector('.d-amount').value,method:r.querySelector('.d-method').value,prep:r.querySelector('.d-prep').value,notes:r.querySelector('.d-notes').value})),
  activity:[...p.querySelectorAll('.activity-body tr')].map(r=>({time:r.querySelector('.a-time').value,activity:r.querySelector('.a-act').value,duration:r.querySelector('.a-dur').value,intensity:r.querySelector('.a-int').value,notes:r.querySelector('.a-notes').value}))};}
-function collectModule2(){return{student:document.getElementById('m2Student').value,days:[1,2,3].map(collectDay),cfca:[...document.querySelectorAll('.cfca-matrix tbody tr')].map(row=>{const c=row.querySelector('input.cfca-radio:checked');return{item:row.cells[0].textContent,frequency:c?c.value:''};})};}
-function saveModule2(show=true){localStorage.setItem('laboratorioNutricionModulo2',JSON.stringify(collectModule2()));if(show)alert('Datos del Módulo 2 guardados en este navegador.');}
-function restoreModule2(){const raw=localStorage.getItem('laboratorioNutricionModulo2');if(!raw)return;try{const d=JSON.parse(raw);document.getElementById('m2Student').value=d.student||'';(d.days||[]).forEach((x,i)=>{const p=document.getElementById(`dietDay${i+1}`);if(!p)return;p.querySelector('.day-date').value=x.date||'';p.querySelector('.day-weekday').value=x.weekday||'';p.querySelector('.day-comments').value=x.comments||'';p.querySelector('.diet-body').innerHTML=(x.diet||[]).map((q,j)=>dietRowHTML(i+1,j,q)).join('');p.querySelector('.activity-body').innerHTML=(x.activity||[]).map((q,j)=>activityRowHTML(j,q)).join('');});(d.cfca||[]).forEach((x,i)=>{if(!x.frequency)return;const r=[...document.querySelectorAll(`input.cfca-radio[name="cfca_${i}"]`)].find(el=>el.value===x.frequency);if(r)r.checked=true;});}catch(e){}}
-function clearModule2(){if(confirm('¿Quieres eliminar todos los datos guardados del Módulo 2 en este navegador?')){localStorage.removeItem('laboratorioNutricionModulo2');location.reload();}}
-function updateCFCAProgress(){const rows=[...document.querySelectorAll('.cfca-matrix tbody tr')],n=rows.filter(r=>r.querySelector('input.cfca-radio:checked')).length,p=document.getElementById('cfcaProgress');if(p)p.textContent=`${n} de ${rows.length} alimentos respondidos${n===rows.length?' · Cuestionario completo.':'.'}`;}
-document.addEventListener('change',e=>{if(document.getElementById('module2Content')?.contains(e.target)){saveModule2(false);if(e.target.classList.contains('cfca-radio'))updateCFCAProgress();}});
+function collectMEDAS(){
+ return [...document.querySelectorAll('.medas-item')].map((row,i)=>{
+  const c=row.querySelector(`input[name="medas_${i+1}"]:checked`);
+  return {item:i+1,score:c?Number(c.value):null};
+ });
+}
+function collectModule2(){return{
+ student:document.getElementById('m2Student').value,
+ days:[1,2,3].map(collectDay),
+ cfca:[...document.querySelectorAll('.cfca-matrix tbody tr')].map(row=>{const c=row.querySelector('input.cfca-radio:checked');return{item:row.cells[0].textContent,frequency:c?c.value:''};}),
+ medas:collectMEDAS()
+};}
+function saveModule2(show=true){
+ localStorage.setItem('laboratorioNutricionModulo2',JSON.stringify(collectModule2()));
+ if(show)alert('Datos del Módulo 1 guardados en este navegador.');
+}
+function restoreModule2(){
+ const raw=localStorage.getItem('laboratorioNutricionModulo2');if(!raw)return;
+ try{
+  const d=JSON.parse(raw);
+  document.getElementById('m2Student').value=d.student||'';
+  (d.days||[]).forEach((x,i)=>{
+   const p=document.getElementById(`dietDay${i+1}`);if(!p)return;
+   p.querySelector('.day-date').value=x.date||'';
+   p.querySelector('.day-weekday').value=x.weekday||'';
+   p.querySelector('.day-comments').value=x.comments||'';
+   p.querySelector('.diet-body').innerHTML=(x.diet||[]).map((q,j)=>dietRowHTML(i+1,j,q)).join('');
+   p.querySelector('.activity-body').innerHTML=(x.activity||[]).map((q,j)=>activityRowHTML(j,q)).join('');
+  });
+  (d.cfca||[]).forEach((x,i)=>{
+   if(!x.frequency)return;
+   const r=[...document.querySelectorAll(`input.cfca-radio[name="cfca_${i}"]`)].find(el=>el.value===x.frequency);
+   if(r)r.checked=true;
+  });
+  (d.medas||[]).forEach((x,i)=>{
+   if(x.score===null||x.score===undefined)return;
+   const r=document.querySelector(`input[name="medas_${i+1}"][value="${x.score}"]`);
+   if(r)r.checked=true;
+  });
+ }catch(e){}
+ updateMEDAS();
+}
+function clearModule2(){
+ if(confirm('¿Quieres eliminar todos los datos guardados del Módulo 1 en este navegador?')){
+  localStorage.removeItem('laboratorioNutricionModulo2');location.reload();
+ }
+}
+function updateCFCAProgress(){
+ const rows=[...document.querySelectorAll('.cfca-matrix tbody tr')],
+ n=rows.filter(r=>r.querySelector('input.cfca-radio:checked')).length,
+ p=document.getElementById('cfcaProgress');
+ if(p)p.textContent=`${n} de ${rows.length} alimentos respondidos${n===rows.length?' · Cuestionario completo.':'.'}`;
+}
+function updateMEDAS(){
+ const data=collectMEDAS(),answered=data.filter(x=>x.score!==null).length,score=data.reduce((a,x)=>a+(x.score||0),0);
+ const sc=document.getElementById('medasScore'),pr=document.getElementById('medasProgress'),it=document.getElementById('medasInterpretation');
+ if(sc)sc.textContent=score;
+ if(pr)pr.textContent=`${answered} de 14 ítems respondidos${answered===14?' · Cuestionario completo.':''}`;
+ if(it){
+  if(answered<14)it.textContent='Cuestionario sin completar';
+  else if(score<=5)it.textContent='Adherencia baja';
+  else if(score<=9)it.textContent='Adherencia moderada';
+  else it.textContent='Adherencia alta';
+ }
+}
+document.addEventListener('change',e=>{
+ if(document.getElementById('module2Content')?.contains(e.target)){
+  saveModule2(false);
+  if(e.target.classList.contains('cfca-radio'))updateCFCAProgress();
+  if(e.target.closest('.medas-item'))updateMEDAS();
+ }
+});
 function xlsBlob(tables,title){const style='<style>table{border-collapse:collapse}th,td{border:1px solid #777;padding:5px}th{background:#dbe8f5}</style>';const content='<html><head><meta charset="UTF-8">'+style+'</head><body><h2>'+m2esc(title)+'</h2>'+tables+'</body></html>';return new Blob(['\ufeff',content],{type:'application/vnd.ms-excel'});}
 function downloadBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 function dietTablesHTML(){const d=collectModule2();let o='<p><b>Alumno/a:</b> '+m2esc(d.student)+'</p>';d.days.forEach((x,i)=>{o+=`<h3>Día ${i+1} · ${m2esc(x.date)} · ${m2esc(x.weekday)}</h3><table><tr><th>Hora</th><th>Alimento/bebida/suplemento</th><th>Cantidad</th><th>Pesada/estimada</th><th>Preparación</th><th>Marca/ingredientes/añadidos/observaciones</th></tr>`;x.diet.filter(q=>Object.values(q).some(Boolean)).forEach(q=>o+=`<tr><td>${m2esc(q.time)}</td><td>${m2esc(q.food)}</td><td>${m2esc(q.amount)}</td><td>${m2esc(q.method)}</td><td>${m2esc(q.prep)}</td><td>${m2esc(q.notes)}</td></tr>`);o+='</table><h4>Actividad física y cotidiana</h4><table><tr><th>Hora</th><th>Actividad</th><th>Duración</th><th>Intensidad</th><th>Observaciones</th></tr>';x.activity.filter(q=>Object.values(q).some(Boolean)).forEach(q=>o+=`<tr><td>${m2esc(q.time)}</td><td>${m2esc(q.activity)}</td><td>${m2esc(q.duration)}</td><td>${m2esc(q.intensity)}</td><td>${m2esc(q.notes)}</td></tr>`);o+='</table><p><b>Comentarios:</b> '+m2esc(x.comments)+'</p>';});return o;}
 function cfcaTableHTML(){const d=collectModule2();let o='<table><tr><th>Alimento</th><th>Frecuencia</th></tr>';d.cfca.forEach(x=>o+=`<tr><td>${m2esc(x.item)}</td><td>${m2esc(x.frequency)}</td></tr>`);return o+'</table>';}
+function medasTableHTML(){
+ const d=collectModule2(),labels=[
+ 'Aceite de oliva como principal grasa culinaria',
+ 'Aceite de oliva ≥4 cucharadas/día',
+ 'Verduras/hortalizas ≥2 raciones/día (al menos una cruda/ensalada)',
+ 'Fruta ≥3 raciones/día',
+ 'Carne roja/procesada <1 ración/día',
+ 'Mantequilla/margarina/nata <1 ración/día',
+ 'Bebidas azucaradas/carbonatadas <1/día',
+ 'Vino ≥7 copas/semana',
+ 'Legumbres ≥3 raciones/semana',
+ 'Pescado/marisco ≥3 raciones/semana',
+ 'Repostería comercial <3 veces/semana',
+ 'Frutos secos ≥3 raciones/semana',
+ 'Preferencia por pollo/pavo/conejo frente a carne roja/procesada',
+ 'Sofrito ≥2 veces/semana'
+ ];
+ let score=0,o='<table><tr><th>Ítem</th><th>Criterio</th><th>Respuesta</th><th>Puntos</th></tr>';
+ (d.medas||[]).forEach((x,i)=>{
+  const val=x.score===null?'Sin responder':(x.score===1?'Cumple':'No cumple');
+  const pts=x.score===null?'':x.score;
+  if(x.score===1)score++;
+  o+=`<tr><td>${i+1}</td><td>${m2esc(labels[i]||'')}</td><td>${val}</td><td>${pts}</td></tr>`;
+ });
+ let interp=(d.medas||[]).filter(x=>x.score!==null).length<14?'Cuestionario incompleto':(score<=5?'Adherencia baja':score<=9?'Adherencia moderada':'Adherencia alta');
+ return o+`</table><p><b>Puntuación total:</b> ${score}/14 · <b>Interpretación:</b> ${interp}</p>`;
+}
+
 function exportDietXLS(){downloadBlob(xlsBlob(dietTablesHTML(),'Registro dietético y de actividad · 3 días'),'registro_dietetico_3_dias.xls');}
 function exportCFCA_XLS(){downloadBlob(xlsBlob(cfcaTableHTML(),'Cuestionario de frecuencia de consumo alimentario'),'cuestionario_frecuencia_consumo.xls');}
-function exportAllXLS(){downloadBlob(xlsBlob(dietTablesHTML()+'<br><h2>CFCA</h2>'+cfcaTableHTML(),'Laboratorio de Nutrición Deportiva · Módulo 2'),'modulo_2_registro_dietetico.xls');}
+function exportMEDAS_XLS(){downloadBlob(xlsBlob(medasTableHTML(),'MEDAS-14 · Adherencia a la dieta mediterránea'),'medas14_predimed.xls');}
+function exportAllXLS(){downloadBlob(xlsBlob(dietTablesHTML()+'<br><h2>CFCA</h2>'+cfcaTableHTML()+'<br><h2>MEDAS-14 · PREDIMED</h2>'+medasTableHTML(),'Laboratorio de Nutrición Deportiva · Módulo 1'),'modulo_1_registro_dietetico.xls');}
 function printModule1(){document.body.classList.add('m1-print');setTimeout(()=>{window.print();setTimeout(()=>document.body.classList.remove('m1-print'),500)},100);}
 function printModule2(){saveModule2(false);document.body.classList.add('m2-print');setTimeout(()=>{window.print();setTimeout(()=>document.body.classList.remove('m2-print'),500)},100);}
-window.addEventListener('DOMContentLoaded',()=>{renderDietDays();restoreModule2();updateCFCAProgress();m3RenderRows();m3Restore();m3UpdateMeans();m3RenderSomato({sx:NaN,sy:NaN});});
+window.addEventListener('DOMContentLoaded',()=>{renderDietDays();restoreModule2();updateCFCAProgress();updateMEDAS();m3RenderRows();m3Restore();m3UpdateMeans();m3RenderSomato({sx:NaN,sy:NaN});});
 </script>
 
 
